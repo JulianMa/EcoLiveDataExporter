@@ -14,16 +14,17 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
     {
         public static IEnumerable<StoreComponent> Stores => WorldObjectUtil.AllObjsWithComponent<StoreComponent>();
 
-        public static string GetStoresString()
+        public static string[] GetStoresString()
         {
             try
             {
                 Logger.Debug("Started collecting store information");
-                var storesPocos = Stores.Select(store => new Poco.JsonStore(store)).ToList();
-                Logger.Debug("Got store pocos");
-                var json = JsonConvert.SerializeObject(storesPocos);
+                var histStores = new JsonHistStores(Stores);
+                var storesJson = JsonConvert.SerializeObject(histStores.Stores);
+                // We serialize an array of history so that when we patch the db it add's it to the existing array
+                var histStoresJson = Config.Data.SaveHistoricalStoreData ? JsonConvert.SerializeObject(new JsonPatchHelper<JsonHistStores>(histStores)) : "";
                 Logger.Debug("Got stores string");
-                return json;
+                return new string[] { storesJson, histStoresJson };
             }
             catch (Exception e)
             {

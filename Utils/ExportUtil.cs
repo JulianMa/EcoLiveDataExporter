@@ -36,19 +36,19 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
             // Overrides current store data in file
             Logger.Debug("Exporting store data");
             var storesString = TradeUtil.GetStoresString();
-            if (storesString == null)
+            if (storesString == null || storesString.Length == 0)
             {
                 return;
             }
 
-            await DataExporter.WriteToFile("stores", "/", storesString);
+            await DataExporter.WriteToFile("stores", "/", storesString[0]);
             Logger.Debug($"Store data exported at {DateTime.Now.ToShortTimeString()}");
             EcoLiveData.Status = $"Store data exported at {DateTime.Now.ToShortTimeString()}";
 
             if (Config.Data.SaveHistoricalStoreData)
             {
                 Logger.Debug("Saving stores data to history file");
-                await DataExporter.AddToFile("storesHistoric", "/", storesString);
+                await DataExporter.AddToFile("storesHistoric", "/", storesString[1]);
             }
             Logger.Debug("Finished UpdateStoreData");
         }
