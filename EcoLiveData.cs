@@ -27,7 +27,7 @@ public class EcoLiveData : IModKitPlugin, IInitializablePlugin, IConfigurablePlu
     {
         Logger.Info("Plugin version is " + PluginVersion);
         Config.Instance.Initialize();
-        Status = "EcoLiveDataExporter fully initialized";
+        Status = "EcoLiveDataExporter fully initialized!";
     }
 
     public Result ShouldOverrideAuth(GameAction action)
@@ -37,10 +37,10 @@ public class EcoLiveData : IModKitPlugin, IInitializablePlugin, IConfigurablePlu
 
     public void ActionPerformed(GameAction action)
     {
+        Logger.Debug("Action perfomed: " + action.GetType());
         switch (action)
         {
             case CurrencyTrade currencyTrade: TradeActionProcessor.Process(currencyTrade); break;
-            case InventoryAction inventoryAction: InventoryActionProcess.Process(inventoryAction); break;
         }
     }
 }

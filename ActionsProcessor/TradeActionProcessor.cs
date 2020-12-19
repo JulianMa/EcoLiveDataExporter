@@ -1,4 +1,5 @@
 ﻿using Eco.Gameplay.GameActions;
+using Eco.Plugins.EcoLiveDataExporter.Poco;
 using Eco.Plugins.EcoLiveDataExporter.Utils;
 
 using System;
@@ -11,9 +12,11 @@ namespace Eco.Plugins.EcoLiveDataExporter.ActionsProcessor
     {
         public static void Process(TradeAction trade)
         {
-            if (trade == null) return;
+            if (trade == null || !Config.Data.SaveHistoricalTradesData) return;
 
             Logger.Debug($"Trade detected from {trade.Buyer.Name}: {trade.BoughtOrSold} - {trade.NumberOfItems} - {trade.ItemUsed.Name}");
+            var tradePoco = new JsonTrade(trade);
+            Logger.Debug($"trade obj: {tradePoco}");
         }
     }
 }

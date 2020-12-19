@@ -27,11 +27,30 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
             }
         }
 
+        
+
         private async Task UpdateStoreData()
         {
             LastExport = DateTime.Now;
-            await DataExporter.WriteToFile("stores", "/", TradeUtil.GetStoresString());
+
+            // Overrides current store data in file
+            Logger.Debug("Exporting store data");
+            var storesString = TradeUtil.GetStoresString();
+            if (storesString == null)
+            {
+                return;
+            }
+
+            await DataExporter.WriteToFile("stores", "/", storesString);
+            Logger.Debug($"Store data exported at {DateTime.Now.ToShortTimeString()}");
             EcoLiveData.Status = $"Store data exported at {DateTime.Now.ToShortTimeString()}";
+
+            if (Config.Data.SaveHistoricalStoreData)
+            {
+                Logger.Debug("Saving stores data to history file");
+                await DataExporter.AddToFile("storesHistoric", "/", storesString);
+            }
+            Logger.Debug("Finished UpdateStoreData");
         }
     }
 }

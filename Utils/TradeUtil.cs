@@ -1,5 +1,6 @@
 ﻿using Eco.Gameplay.Components;
 using Eco.Gameplay.Objects;
+using Eco.Plugins.EcoLiveDataExporter.Poco;
 
 using Newtonsoft.Json;
 
@@ -15,10 +16,20 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
 
         public static string GetStoresString()
         {
-            var storesPocos = Stores.Select(store => new Poco.JsonStore(store)).ToList();
-            var storesString = JsonConvert.SerializeObject(storesPocos );
-            Logger.Debug(storesString);
-            return storesString;
+            try
+            {
+                Logger.Debug("Started collecting store information");
+                var storesPocos = Stores.Select(store => new Poco.JsonStore(store)).ToList();
+                Logger.Debug("Got store pocos");
+                var json = JsonConvert.SerializeObject(storesPocos);
+                Logger.Debug("Got stores string");
+                return json;
+            }
+            catch (Exception e)
+            {
+                Logger.Error($"Got an exception trying to export store data: \n {e}");
+                return null;
+            }
         }
     }
 }

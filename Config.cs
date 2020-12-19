@@ -27,5 +27,11 @@ namespace Eco.Plugins.EcoLiveDataExporter
 
         [Description("Enables debugging output to the console."), Category("Debugging")]
         public bool Debug { get; set; } = false;
+
+        [Description("Enables saving store historical data - useful for making a dashboard and getting statistics over time."), Category("History")]
+        public bool SaveHistoricalStoreData { get; set; } = true;
+
+        [Description("Enables saving tradeActions data - useful for list tradings, making dashboards and getting statistics over time."), Category("History")]
+        public bool SaveHistoricalTradesData { get; set; } = false;
     }
 }
