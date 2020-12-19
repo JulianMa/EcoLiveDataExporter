@@ -27,6 +27,7 @@ public class EcoLiveData : IModKitPlugin, IInitializablePlugin, IConfigurablePlu
     {
         Logger.Info("Plugin version is " + PluginVersion);
         Config.Instance.Initialize();
+        TimerUtil.Instance.RestartTimers();
         Status = "EcoLiveDataExporter fully initialized!";
     }
 

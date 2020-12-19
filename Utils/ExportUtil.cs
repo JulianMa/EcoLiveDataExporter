@@ -15,21 +15,19 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
             // Only allow exports every x configured ammount of minutes
             if (timeSinceLastExport > TimeSpan.FromMinutes(Config.Data.ThrotleDbUpdatesForMinutes))
             {
-                ThrotleTask = UpdateStoreData();
+                ThrotleTask = ExportStoreData();
             } else if(ThrotleTask.IsCompleted)
             {
                 Logger.Debug("Started a thread to export data when throtle period ends");
                 // Start a task to dump store data right after the throtle period expired (unless task is already created)
-                ThrotleTask = Task.Delay(TimeSpan.FromMinutes(Config.Data.ThrotleDbUpdatesForMinutes) - timeSinceLastExport).ContinueWith((tsk) => UpdateStoreData());
+                ThrotleTask = Task.Delay(TimeSpan.FromMinutes(Config.Data.ThrotleDbUpdatesForMinutes) - timeSinceLastExport).ContinueWith((tsk) => ExportStoreData());
             } else
             {
                 Logger.Debug("Data export not queued since there is already an active data export queued up");
             }
         }
 
-        
-
-        private async Task UpdateStoreData()
+        public async Task ExportStoreData()
         {
             LastExport = DateTime.Now;
 
