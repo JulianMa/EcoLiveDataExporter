@@ -26,5 +26,12 @@ namespace Eco.Plugins.EcoLiveDataExporter
             ExportUtil.Instance.DumpStoreDataToDatabase();
             user.Player.InfoBoxLocStr("Data dump complete");
         }
+
+        [ChatCommand("Dump crafting recipes to file", ChatAuthorizationLevel.Admin)]
+        public static void DumpRecipes(User user)
+        {
+            Logger.Debug("Updating recipe file");
+            ExportUtil.Instance.DumpRecipesToDatabase();
+        }
     }
 }

@@ -50,5 +50,31 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
             }
             Logger.Debug("Finished UpdateStoreData");
         }
+
+        public void DumpRecipesToDatabase()
+        {
+            if (ThrotleTask.IsCompleted)
+            {
+                // Start a task to dump store data right after the throtle period expired (unless task is already created)
+                Logger.Debug($"Exporting Recipes");
+                ThrotleTask = ExportRecipes();
+            } else
+            {
+                Logger.Debug($"Not exporting recipes since there is already an export in progress");
+            }
+        }
+
+        public async Task ExportRecipes()
+        {
+            // Overrides current recipes in file
+            var recipesString = RecipeUtil.GetRecipesString();
+            if (recipesString == null || recipesString.Length == 0)
+            {
+                return;
+            }
+
+            await DataExporter.WriteToFile("recipes", "/", recipesString);
+            Logger.Debug($"Recipes exported at {DateTime.Now.ToShortTimeString()}");
+        }
     }
 }
