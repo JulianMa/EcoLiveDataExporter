@@ -15,19 +15,19 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
             // Only allow exports every x configured ammount of minutes
             if (timeSinceLastExport > TimeSpan.FromMinutes(Config.Data.ThrotleDbUpdatesForMinutes))
             {
-                ThrotleTask = ExportStoreData();
+                ThrotleTask = ExportStoreData(true);
             } else if(ThrotleTask.IsCompleted)
             {
                 Logger.Debug("Started a thread to export data when throtle period ends");
                 // Start a task to dump store data right after the throtle period expired (unless task is already created)
-                ThrotleTask = Task.Delay(TimeSpan.FromMinutes(Config.Data.ThrotleDbUpdatesForMinutes) - timeSinceLastExport).ContinueWith((tsk) => ExportStoreData());
+                ThrotleTask = Task.Delay(TimeSpan.FromMinutes(Config.Data.ThrotleDbUpdatesForMinutes) - timeSinceLastExport).ContinueWith((tsk) => ExportStoreData(true));
             } else
             {
                 Logger.Debug("Data export not queued since there is already an active data export queued up");
             }
         }
 
-        public async Task ExportStoreData()
+        public async Task ExportStoreData(bool byCommand = false)
         {
             LastExport = DateTime.Now;
 
@@ -43,7 +43,7 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
             Logger.Debug($"Store data exported at {DateTime.Now.ToShortTimeString()}");
             EcoLiveData.Status = $"Store data exported at {DateTime.Now.ToShortTimeString()}";
 
-            if (Config.Data.SaveHistoricalStoreData)
+            if (!byCommand && Config.Data.SaveHistoricalStoreData)
             {
                 Logger.Debug("Saving stores data to history file");
                 await DataExporter.AddToFile("storesHistoric", "/", storesString[1]);

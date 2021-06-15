@@ -20,7 +20,7 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
             {
                 Logger.Debug("Started collecting store information");
                 var histStores = new JsonHistStores(Stores);
-                var storesJson = JsonConvert.SerializeObject(histStores.Stores);
+                var storesJson = JsonConvert.SerializeObject(histStores);
                 // We serialize an array of history so that when we patch the db it add's it to the existing array
                 var histStoresJson = Config.Data.SaveHistoricalStoreData ? JsonConvert.SerializeObject(new JsonPatchHelper<JsonHistStores>(histStores)) : "";
                 Logger.Debug("Got stores string");

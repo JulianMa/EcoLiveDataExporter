@@ -16,6 +16,7 @@ namespace Eco.Plugins.EcoLiveDataExporter.Poco
         public int ExportedAtDay { get; set; }
         public int ExportedAtHour { get; set; }
         public int ExportedAtMin { get; set; }
+        public string ExportedAt { get; set; }
         public JsonHistStores(IEnumerable<StoreComponent> storeComponents)
         {
             Version = 1;
@@ -26,6 +27,7 @@ namespace Eco.Plugins.EcoLiveDataExporter.Poco
             ExportedAtDay = now.Day;
             ExportedAtHour = now.Hour;
             ExportedAtMin = now.Minute;
+            ExportedAt = now.ToString("yyyy-MM-dd, H:mm:ss");
         }
     }
 }
