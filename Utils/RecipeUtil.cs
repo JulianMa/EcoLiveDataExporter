@@ -31,5 +31,28 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
                 return null;
             }
         }
+
+        public static string GetCraftableTagItems()
+        {
+            try
+            {
+                var allRecipes = RecipeFamily.AllRecipes;
+                Logger.Debug("Started collecting recipe tags information: " + allRecipes.Length);
+                var craftableTags = allRecipes.SelectMany(t => t.Recipes.SelectMany(t => t.Ingredients.Select(t => t.Tag))).Where(t => t?.DisplayName != null).Distinct();
+                Logger.Debug("Got craftable tags: " + craftableTags.Count());
+                Logger.Debug("null tags: " + craftableTags.Where(t => t?.DisplayName == null).Count());
+
+                var tags = craftableTags.ToDictionary(t => t?.DisplayName.NotTranslated, t => t?.TaggedItems().Select(t => t.DisplayName.NotTranslated));
+                var tagsJson = JsonConvert.SerializeObject(tags);
+
+                Logger.Debug("Got craftable tag items string");
+                return tagsJson;
+            }
+            catch (Exception e)
+            {
+                Logger.Error($"Got an exception trying to export item tags: \n {e}");
+                return null;
+            }
+        }
     }
 }

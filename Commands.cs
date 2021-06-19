@@ -30,8 +30,8 @@ namespace Eco.Plugins.EcoLiveDataExporter
         [ChatCommand("Dump crafting recipes to file", ChatAuthorizationLevel.Admin)]
         public static void DumpRecipes(User user)
         {
-            Logger.Debug("Updating recipe file");
-            ExportUtil.Instance.DumpRecipesToDatabase();
+            Logger.Debug("Updating recipes file");
+            ExportUtil.Instance.DumpRecipesAndItemsToDatabase();
         }
     }
 }

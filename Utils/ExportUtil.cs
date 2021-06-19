@@ -51,13 +51,13 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
             Logger.Debug("Finished UpdateStoreData");
         }
 
-        public void DumpRecipesToDatabase()
+        public void DumpRecipesAndItemsToDatabase()
         {
             if (ThrotleTask.IsCompleted)
             {
                 // Start a task to dump store data right after the throtle period expired (unless task is already created)
                 Logger.Debug($"Exporting Recipes");
-                ThrotleTask = ExportRecipes();
+                ThrotleTask = ExportRecipes().ContinueWith((tsk) => ExportItems());
             } else
             {
                 Logger.Debug($"Not exporting recipes since there is already an export in progress");
@@ -75,6 +75,19 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
 
             await DataExporter.WriteToFile("recipes", "/", recipesString);
             Logger.Debug($"Recipes exported at {DateTime.Now.ToShortTimeString()}");
+        }
+
+        public async Task ExportItems()
+        {
+            // Overrides current recipes in file
+            var tagsString = RecipeUtil.GetCraftableTagItems();
+            if (tagsString == null || tagsString.Length == 0)
+            {
+                return;
+            }
+
+            await DataExporter.WriteToFile("tags", "/", tagsString);
+            Logger.Debug($"Item tags exported at {DateTime.Now.ToShortTimeString()}");
         }
     }
 }
