@@ -54,5 +54,23 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
                 return null;
             }
         }
+
+        public static string GetCraftingTablesString()
+        {
+            try
+            {
+                var allCraftingTables = WorldObjectUtil.AllObjsWithComponent<CraftingComponent>();
+                Logger.Debug("Started collecting crafting tables information: " + allCraftingTables.Count());
+                var tablesToExport = new JsonHistCraftingTables(allCraftingTables);
+                var craftingTablesString = JsonConvert.SerializeObject(tablesToExport);
+                Logger.Debug("Got crafting tables string");
+                return craftingTablesString;
+            }
+            catch (Exception e)
+            {
+                Logger.Error($"Got an exception trying to export crafting tables: \n {e}");
+                return null;
+            }
+        }
     }
 }

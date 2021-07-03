@@ -33,25 +33,39 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
         {
             LastExport = DateTime.Now;
 
-            // Overrides current store data in file
-            Logger.Debug("Exporting store data");
-            var storesString = TradeUtil.GetStoresString();
-            if (storesString == null || storesString.Length == 0)
+            await ExportLiveStoreData();
+            await ExportLiveTradesData();
+            await ExportLiveCraftingTablesData();
+
+            EcoLiveData.Status = $"Live data exported at {DateTime.Now.ToShortTimeString()}";
+        }
+
+        private async Task ExportLiveStoreData(bool byCommand = false)
+        {
+            if (Config.Data.SaveStoreData)
             {
-                return;
+                // Overrides current store data in file
+                Logger.Debug("Exporting store data");
+                var storesString = TradeUtil.GetStoresString();
+                if (storesString == null || storesString.Length == 0)
+                {
+                    return;
+                }
+
+                await DataExporter.WriteToFile("stores", "/", storesString[0]);
+                Logger.Debug($"Store data exported at {DateTime.Now.ToShortTimeString()}");
+
+                if (!byCommand && Config.Data.SaveHistoricalStoreData)
+                {
+                    Logger.Debug("Saving stores data to history file");
+                    await DataExporter.AddToFile("storesHistoric", "/", storesString[1]);
+                }
+                Logger.Debug("Finished UpdateStoreData");
             }
+        }
 
-            await DataExporter.WriteToFile("stores", "/", storesString[0]);
-            Logger.Debug($"Store data exported at {DateTime.Now.ToShortTimeString()}");
-            EcoLiveData.Status = $"Store data exported at {DateTime.Now.ToShortTimeString()}";
-
-            if (!byCommand && Config.Data.SaveHistoricalStoreData)
-            {
-                Logger.Debug("Saving stores data to history file");
-                await DataExporter.AddToFile("storesHistoric", "/", storesString[1]);
-            }
-            Logger.Debug("Finished UpdateStoreData");
-
+        public async Task ExportLiveTradesData()
+        {
             if (Config.Data.SaveHistoricalTradesData)
             {
                 Logger.Debug("Exporting trades data");
@@ -70,6 +84,22 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
                     Logger.Error($"Got an exception trying to export trades data: \n {e}");
                 }
                 Logger.Debug("Finished exporting trades data");
+            }
+        }
+        public async Task ExportLiveCraftingTablesData()
+        {
+            if (Config.Data.SaveCraftingTablesData)
+            {
+                // Overrides current crafting tables data in file
+                Logger.Debug("Exporting crafting tables data");
+                var craftingTablesString = RecipeUtil.GetCraftingTablesString();
+                if (craftingTablesString == null || craftingTablesString.Length == 0)
+                {
+                    return;
+                }
+
+                await DataExporter.WriteToFile("craftingTables", "/", craftingTablesString);
+                Logger.Debug($"Finished exporting crafting tables data");
             }
         }
 

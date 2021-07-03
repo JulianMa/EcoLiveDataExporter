@@ -37,6 +37,9 @@ namespace Eco.Plugins.EcoLiveDataExporter
         [Description("Enables saving tradeActions data - useful for list past tradings, making dashboards and getting statistics over time."), Category("Recurrent data export")]
         public bool SaveHistoricalTradesData { get; set; } = true;
 
+        [Description("Enables saving crafting tables data - useful for list user tables and their upgrades."), Category("Recurrent data export")]
+        public bool SaveCraftingTablesData { get; set; } = true;
+
         [Description("Enables debugging output to the console."), Category("Debugging")]
         public bool Debug { get; set; } = false;
     }
