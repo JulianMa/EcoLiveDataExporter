@@ -9,25 +9,27 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
         private Task ThrotleTask = Task.CompletedTask;
         private ExportUtil() { }
         public static ExportUtil Instance = new ExportUtil();
-        public void DumpStoreDataToDatabase()
+        public void DumpLiveDataToDatabase()
         {
             var timeSinceLastExport = DateTime.Now - this.LastExport;
             // Only allow exports every x configured ammount of minutes
             if (timeSinceLastExport > TimeSpan.FromMinutes(Config.Data.ThrotleDbUpdatesForMinutes))
             {
-                ThrotleTask = ExportStoreData(true);
+                ThrotleTask = ExportLiveData(true);
             } else if(ThrotleTask.IsCompleted)
             {
                 Logger.Debug("Started a thread to export data when throtle period ends");
                 // Start a task to dump store data right after the throtle period expired (unless task is already created)
-                ThrotleTask = Task.Delay(TimeSpan.FromMinutes(Config.Data.ThrotleDbUpdatesForMinutes) - timeSinceLastExport).ContinueWith((tsk) => ExportStoreData(true));
+                ThrotleTask = Task.Delay(TimeSpan.FromMinutes(Config.Data.ThrotleDbUpdatesForMinutes) - timeSinceLastExport).ContinueWith((tsk) => ExportLiveData(true));
             } else
             {
                 Logger.Debug("Data export not queued since there is already an active data export queued up");
             }
         }
 
-        public async Task ExportStoreData(bool byCommand = false)
+        // Exports data configured in "Recurrent data export" config section
+        // Can be called by user command directly or by a recurrent timer function
+        public async Task ExportLiveData(bool byCommand = false)
         {
             LastExport = DateTime.Now;
 
@@ -49,6 +51,26 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
                 await DataExporter.AddToFile("storesHistoric", "/", storesString[1]);
             }
             Logger.Debug("Finished UpdateStoreData");
+
+            if (Config.Data.SaveHistoricalTradesData)
+            {
+                Logger.Debug("Exporting trades data");
+                var tradesString = TradeUtil.GetTradesString();
+                if (tradesString == null || tradesString.Length == 0)
+                {
+                    return;
+                }
+                try
+                {
+                    Logger.Debug("Saving trades to file");
+                    await DataExporter.AddToFile("trades", "/", tradesString);
+                }
+                catch (Exception e)
+                {
+                    Logger.Error($"Got an exception trying to export trades data: \n {e}");
+                }
+                Logger.Debug("Finished exporting trades data");
+            }
         }
 
         public void DumpRecipesAndItemsToDatabase()

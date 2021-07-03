@@ -6,10 +6,10 @@ using Eco.Gameplay.GameActions;
 using Eco.Plugins.EcoLiveDataExporter;
 using Eco.Plugins.EcoLiveDataExporter.ActionsProcessor;
 using Eco.Plugins.EcoLiveDataExporter.Utils;
-public class EcoLiveData : IModKitPlugin, IInitializablePlugin, IConfigurablePlugin, IGameActionAware
+public class EcoLiveData : IModKitPlugin, IInitializablePlugin, IShutdownablePlugin, IConfigurablePlugin, IGameActionAware
 {
     public static string Status = "Not initialized";
-    public readonly Version PluginVersion = new Version(1, 2, 0);
+    public readonly Version PluginVersion = new Version(1, 3, 0);
     public IPluginConfig PluginConfig => Config.Instance.PluginConfig;
 
     public ThreadSafeAction<object, string> ParamChanged { get; set; }
@@ -29,6 +29,13 @@ public class EcoLiveData : IModKitPlugin, IInitializablePlugin, IConfigurablePlu
         Config.Instance.Initialize();
         TimerUtil.Instance.RestartTimers();
         Status = "EcoLiveDataExporter fully initialized!";
+        ActionUtil.AddListener(this);
+    }
+    public void Shutdown()
+    {
+        ActionUtil.RemoveListener(this);
+        Logger.Info("Plugin shutdown");
+        Status = "EcoLiveDataExporter fully Shutdown!";
     }
 
     public Result ShouldOverrideAuth(GameAction action)
@@ -37,8 +44,8 @@ public class EcoLiveData : IModKitPlugin, IInitializablePlugin, IConfigurablePlu
     }
 
     public void ActionPerformed(GameAction action)
-    {
-        Logger.Debug("Action perfomed: " + action.GetType());
+    { 
+        //Logger.Debug("Action perfomed: " + action.GetType());
         switch (action)
         {
             case CurrencyTrade currencyTrade: TradeActionProcessor.Process(currencyTrade); break;

@@ -1,4 +1,5 @@
 ﻿using Eco.Gameplay.Components;
+using Eco.Gameplay.GameActions;
 
 using System;
 using System.Collections.Generic;
@@ -7,15 +8,15 @@ using System.Text;
 
 namespace Eco.Plugins.EcoLiveDataExporter.Poco
 {
-    public class JsonHistStores
+    public class JsonHistTrades
     {
         public int Version { get; set; }
-        public List<JsonStore> Stores { get; set; }
+        public List<JsonTrade> Trades { get; set; }
         public JsonDateTime ExportedAt { get; set; }
-        public JsonHistStores(IEnumerable<StoreComponent> storeComponents)
+        public JsonHistTrades(List<JsonTrade> trades)
         {
             Version = 2;
-            Stores = storeComponents.Select(store => new Poco.JsonStore(store)).ToList();
+            Trades = trades;
             ExportedAt = new JsonDateTime(DateTime.UtcNow);
         }
     }

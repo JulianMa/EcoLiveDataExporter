@@ -23,16 +23,19 @@ namespace Eco.Plugins.EcoLiveDataExporter
         public string DbOutputApp { get; set; } = "http://localhost:3030";
 
         [Description("Do not allow updating database more than once on each x minutes (this is considered for user command only)"), Category("Database output")]
-        public int ThrotleDbUpdatesForMinutes { get; set; } = 5;
+        public int ThrotleDbUpdatesForMinutes { get; set; } = 1;
 
-        [Description("Enables saving store historical data - useful for making a dashboard and getting statistics over time."), Category("History.Store")]
+        [Description("Export util runs each x minutes."), Category("Recurrent data export")]
+        public int ExportUtilTimer { get; set; } = 15;
+
+        [Description("Enables saving store data - store prices are used for price calculator."), Category("Recurrent data export")]
+        public bool SaveStoreData { get; set; } = true;
+
+        [Description("Enables saving store historical data - useful for making a dashboard and getting statistics over time."), Category("Recurrent data export")]
         public bool SaveHistoricalStoreData { get; set; } = true;
 
-        [Description("Saves store historical data each x minutes."), Category("History.Store")]
-        public int UpdateHistoricalStoreDataTimer { get; set; } = 60;
-
-        [Description("Enables saving tradeActions data - useful for list tradings, making dashboards and getting statistics over time."), Category("History")]
-        public bool SaveHistoricalTradesData { get; set; } = false;
+        [Description("Enables saving tradeActions data - useful for list past tradings, making dashboards and getting statistics over time."), Category("Recurrent data export")]
+        public bool SaveHistoricalTradesData { get; set; } = true;
 
         [Description("Enables debugging output to the console."), Category("Debugging")]
         public bool Debug { get; set; } = false;

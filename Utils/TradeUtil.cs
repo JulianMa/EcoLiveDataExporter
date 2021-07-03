@@ -1,5 +1,6 @@
 ﻿using Eco.Gameplay.Components;
 using Eco.Gameplay.Objects;
+using Eco.Plugins.EcoLiveDataExporter.ActionsProcessor;
 using Eco.Plugins.EcoLiveDataExporter.Poco;
 
 using Newtonsoft.Json;
@@ -29,6 +30,26 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
             catch (Exception e)
             {
                 Logger.Error($"Got an exception trying to export store data: \n {e}");
+                return null;
+            }
+        }
+        public static string GetTradesString()
+        {
+            if (TradeActionProcessor.TradesToProcess.Count == 0)
+            {
+                Logger.Debug("There are no trades data to export!");
+                return null;
+            }
+            try
+            {
+                var tradesJson = JsonConvert.SerializeObject(new JsonPatchHelper<JsonHistTrades>(new JsonHistTrades(TradeActionProcessor.TradesToProcess)));
+                Logger.Debug("Exporting json: " + tradesJson);
+                TradeActionProcessor.TradesToProcess = new List<JsonTrade>();
+                return tradesJson;
+            }
+            catch (Exception e)
+            {
+                Logger.Error($"Got an exception trying to export trades data: \n {e}");
                 return null;
             }
         }

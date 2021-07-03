@@ -20,11 +20,11 @@ namespace Eco.Plugins.EcoLiveDataExporter
             TimerUtil.Instance.StopTimers();
         }
 
-        [ChatCommand("Dumps all available store listings to file", ChatAuthorizationLevel.User)]
-        public static void DumpStoreData(User user)
+        [ChatCommand("Dumps all available live data to database (this is ran recurrently by a timer)", ChatAuthorizationLevel.User)]
+        public static void DumpLiveData(User user)
         {
-            ExportUtil.Instance.DumpStoreDataToDatabase();
-            user.Player.InfoBoxLocStr("Data dump complete");
+            ExportUtil.Instance.DumpLiveDataToDatabase();
+            user.Player.InfoBoxLocStr("Live data saved in database");
         }
 
         [ChatCommand("Dump crafting recipes to file", ChatAuthorizationLevel.Admin)]
@@ -33,5 +33,12 @@ namespace Eco.Plugins.EcoLiveDataExporter
             Logger.Debug("Updating recipes file");
             ExportUtil.Instance.DumpRecipesAndItemsToDatabase();
         }
+
+        //[ChatCommand("Create test user", ChatAuthorizationLevel.Admin)]
+        //public static void CreateUser(User user)
+        //{ 
+        //    Logger.Debug("Creating test user");
+        //    UserManager.GetOrCreateUser("12345", "12345", "FakeUser");
+        //}
     }
 }

@@ -18,7 +18,7 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
         public void RestartTimers()
         {
             HistoricalStoreDataWorker?.Shutdown();
-            HistoricalStoreDataWorker = PeriodicWorkerFactory.CreateWithInterval(TimeSpan.FromMinutes(Config.Data.UpdateHistoricalStoreDataTimer), OnSaveHistoricalStoreDataTimer);
+            HistoricalStoreDataWorker = PeriodicWorkerFactory.CreateWithInterval(TimeSpan.FromMinutes(Config.Data.ExportUtilTimer), OnExportTimerTick);
             HistoricalStoreDataWorker.Start();
         }
 
@@ -27,11 +27,11 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
             HistoricalStoreDataWorker?.Shutdown();
         }
 
-        private async Task OnSaveHistoricalStoreDataTimer(CancellationToken token)
+        private async Task OnExportTimerTick(CancellationToken token)
         {
             if (!token.IsCancellationRequested)
             {
-                await ExportUtil.Instance.ExportStoreData();
+                await ExportUtil.Instance.ExportLiveData();
             }
         }
     }

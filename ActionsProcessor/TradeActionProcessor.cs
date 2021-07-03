@@ -10,13 +10,13 @@ namespace Eco.Plugins.EcoLiveDataExporter.ActionsProcessor
 {
     public class TradeActionProcessor
     {
-        public static void Process(TradeAction trade)
+        public static List<JsonTrade> TradesToProcess = new List<JsonTrade>();
+        public static void Process(CurrencyTrade trade)
         {
             if (trade == null || !Config.Data.SaveHistoricalTradesData) return;
 
-            Logger.Debug($"Trade detected from {trade.Buyer.Name}: {trade.BoughtOrSold} - {trade.NumberOfItems} - {trade.ItemUsed.Name}");
             var tradePoco = new JsonTrade(trade);
-            Logger.Debug($"trade obj: {tradePoco}");
+            TradesToProcess.Add(tradePoco);
         }
     }
 }
