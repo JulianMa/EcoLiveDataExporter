@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading.Tasks;
+
 using Eco.Core.Plugins;
 using Eco.Core.Plugins.Interfaces;
 using Eco.Core.Utils;
@@ -31,11 +33,12 @@ public class EcoLiveData : IModKitPlugin, IInitializablePlugin, IShutdownablePlu
         Status = "EcoLiveDataExporter fully initialized!";
         ActionUtil.AddListener(this);
     }
-    public void Shutdown()
+    public Task ShutdownAsync()
     {
         ActionUtil.RemoveListener(this);
         Logger.Info("Plugin shutdown");
         Status = "EcoLiveDataExporter fully Shutdown!";
+        return Task.CompletedTask;
     }
 
     public Result ShouldOverrideAuth(GameAction action)
