@@ -24,8 +24,9 @@ namespace Eco.Plugins.EcoLiveDataExporter.Poco
 
             //Get the 25% string out of the string "Decreases resource cost for the table work orders by <style=\"Positive\">25%</style>."
             //Level 5 is currently never fetched, since it will not work for all recipes in the table
-            var ResourceBenefitString = component?.ResourceEfficiencyModule?.Benefits.Select(t => t.NotTranslated).Where(t => t.IndexOf("Decreases resource cost for the table work orders by") >= 0).FirstOrDefault();
-            if(ResourceBenefitString.IndexOf("10%") > 0)
+            var ResourceBenefitString = component?.ResourceEfficiencyModule?.Benefits?.Select(t => t.NotTranslated).Where(t => t.IndexOf("Decreases resource cost for the table work orders by") >= 0).FirstOrDefault();
+            if (ResourceBenefitString == null) { return; }
+            if (ResourceBenefitString.IndexOf("10%") > 0)
             {
                 ModuleLevel = 1;
             } else if (ResourceBenefitString.IndexOf("25%") > 0)

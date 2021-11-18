@@ -15,7 +15,7 @@ namespace Eco.Plugins.EcoLiveDataExporter.Poco
         public JsonHistCraftingTables(IEnumerable<CraftingComponent> craftingComponents)
         {
             Version = 2;
-            CraftingTables = craftingComponents.Select(table => new Poco.JsonCraftingTable(table)).ToList();
+            CraftingTables = craftingComponents?.Select(table => new Poco.JsonCraftingTable(table)).ToList() ?? new List<JsonCraftingTable>();
             ExportedAt = new JsonDateTime(DateTime.UtcNow);
         }
     }

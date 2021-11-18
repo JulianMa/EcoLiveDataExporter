@@ -36,7 +36,7 @@ namespace Eco.Plugins.EcoLiveDataExporter
 
         //[ChatCommand("Create test user", ChatAuthorizationLevel.Admin)]
         //public static void CreateUser(User user)
-        //{ 
+        //{
         //    Logger.Debug("Creating test user");
         //    UserManager.GetOrCreateUser("12345", "12345", "FakeUser");
         //}
