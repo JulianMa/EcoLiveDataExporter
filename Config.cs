@@ -22,20 +22,22 @@ namespace Eco.Plugins.EcoLiveDataExporter
         [Description("Url for the rest api that receives file updates and asynchrounosly writes them to disk."), Category("Database output")]
         public string DbOutputApp { get; set; } = "http://localhost:3030";
 
+        public string JsonStorageId { get; set; } = "425aff9f-2361-4031-b941-91d9b7d58f82";
+
         [Description("Do not allow updating database more than once on each x minutes (this is considered for user command only)"), Category("Database output")]
         public int ThrotleDbUpdatesForMinutes { get; set; } = 1;
 
         [Description("Export util runs each x minutes."), Category("Recurrent data export")]
-        public int ExportUtilTimer { get; set; } = 15;
+        public int ExportUtilTimer { get; set; } = 30;
 
         [Description("Enables saving store data - store prices are used for price calculator."), Category("Recurrent data export")]
         public bool SaveStoreData { get; set; } = true;
 
         [Description("Enables saving store historical data - useful for making a dashboard and getting statistics over time."), Category("Recurrent data export")]
-        public bool SaveHistoricalStoreData { get; set; } = true;
+        public bool SaveHistoricalStoreData { get; set; } = false;
 
         [Description("Enables saving tradeActions data - useful for list past tradings, making dashboards and getting statistics over time."), Category("Recurrent data export")]
-        public bool SaveHistoricalTradesData { get; set; } = true;
+        public bool SaveHistoricalTradesData { get; set; } = false;
 
         [Description("Enables saving crafting tables data - useful for list user tables and their upgrades."), Category("Recurrent data export")]
         public bool SaveCraftingTablesData { get; set; } = true;
