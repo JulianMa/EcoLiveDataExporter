@@ -114,7 +114,8 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
                 ThrotleTask = ExportRecipes().ContinueWith((tsk) => ExportItems());
             } else
             {
-                Logger.Debug($"Not exporting recipes since there is already an export in progress");
+                Logger.Debug($"Not exporting recipes since there is already an export in progress. Exporting when finished");
+                ThrotleTask.ContinueWith((tsk) => ExportRecipes()).ContinueWith((tsk) => ExportItems());
             }
         }
 
