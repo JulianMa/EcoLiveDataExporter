@@ -22,7 +22,7 @@ namespace Eco.Plugins.EcoLiveDataExporter
         [Description("Url for the rest api that receives file updates and asynchrounosly writes them to disk."), Category("Database output")]
         public string DbOutputApp { get; set; } = "http://localhost:3030";
 
-        public string JsonStorageId { get; set; } = "425aff9f-2361-4031-b941-91d9b7d58f82";
+        public string JsonStorageId { get; set; } = "fa89590a-2849-4563-aa75-a960d2e11c6f";
 
         [Description("Do not allow updating database more than once on each x minutes (this is considered for user command only)"), Category("Database output")]
         public int ThrotleDbUpdatesForMinutes { get; set; } = 1;

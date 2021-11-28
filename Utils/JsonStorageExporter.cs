@@ -86,14 +86,21 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
             if (Config.Data.JsonStorageId == null || Config.Data.JsonStorageId.Length == 0)
                 return;
 
-            var config = await GetJsonConfigFile();
-            var updatedDbs = await ReplaceJsonFile(fileName, jsonString, config.Dbs);
-            if (updatedDbs != null)
+            try
             {
-                // Update config file
-                Logger.Debug($"Finishing by updating config object!");
-                var updatedConfig = new JsonConfigFile() { Dbs = updatedDbs };
-                await BuildUrlAndSendRequest(Config.Data.JsonStorageId, JsonConvert.SerializeObject(updatedConfig), client.PutAsync);
+                var config = await GetJsonConfigFile();
+                var updatedDbs = await ReplaceJsonFile(fileName, jsonString, config.Dbs);
+                if (updatedDbs != null)
+                {
+                    // Update config file
+                    Logger.Debug($"Finishing by updating config object!");
+                    var updatedConfig = new JsonConfigFile() { Dbs = updatedDbs };
+                    await BuildUrlAndSendRequest(Config.Data.JsonStorageId, JsonConvert.SerializeObject(updatedConfig), client.PutAsync);
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Error($"Handled an exception trying to write to json file {fileName} with stacktrace: \n {e}");
             }
         }
 
