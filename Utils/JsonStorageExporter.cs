@@ -37,7 +37,7 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
                 }
             }
 
-            return new JsonConfigFile() { Dbs = new List<JsonConfigDb>() };
+            return null;
         }
 
         private static List<JsonConfigDb> AddDbToList(List<JsonConfigDb> existingDbs, JsonConfigDb newDb)
@@ -89,6 +89,11 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
             try
             {
                 var config = await GetJsonConfigFile();
+                if (config == null || config.Dbs == null)
+                {
+                    Logger.Error("Could not export files since config file is invalid or not accessible! Check previous exception for more details.");
+                    return;
+                }
                 var updatedDbs = await ReplaceJsonFile(fileName, jsonString, config.Dbs);
                 if (updatedDbs != null)
                 {
