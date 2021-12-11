@@ -22,12 +22,12 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
 
         private static Task BuildUrlAndSendRequest(string file, string path, string jsonString, Func<string, HttpContent, Task<HttpResponseMessage>> sendAsyncRequest)
         {
-            if (Config.Data.DbOutputApp == null || Config.Data.DbOutputApp.Length == 0)
+            if (Config.Data.DbOutputAppDeprecated == null || Config.Data.DbOutputAppDeprecated.Length == 0)
             {
                 Logger.Debug(@"DbOutputApp is not configured. Request not sent to {file}/{path}");
                 return Task.CompletedTask;
             }
-            var url = $"{Config.Data.DbOutputApp}/{file}?path={path}";
+            var url = $"{Config.Data.DbOutputAppDeprecated}/{file}?path={path}";
             return SendJsonRequest(url, CompressRequestContent(jsonString), sendAsyncRequest);
         }
 
