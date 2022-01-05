@@ -11,7 +11,7 @@ using Eco.Plugins.EcoLiveDataExporter.Utils;
 public class EcoLiveData : IModKitPlugin, IInitializablePlugin, IShutdownablePlugin, IConfigurablePlugin, IGameActionAware
 {
     public static string Status = "Not initialized";
-    public readonly Version PluginVersion = new Version(2, 0, 0);
+    public static readonly Version PluginVersion = new Version(2, 0, 2);
     public IPluginConfig PluginConfig => Config.Instance.PluginConfig;
 
     public ThreadSafeAction<object, string> ParamChanged { get; set; }
@@ -27,7 +27,7 @@ public class EcoLiveData : IModKitPlugin, IInitializablePlugin, IShutdownablePlu
 
     public void Initialize(TimedTask timer)
     {
-        Logger.Info("Plugin version is " + PluginVersion);
+        Logger.Info("Plugin EcoLiveData version is " + PluginVersion);
         Config.Instance.Initialize();
         TimerUtil.Instance.RestartTimers();
         ExportUtil.Instance.DumpRecipesAndItemsToDatabase();

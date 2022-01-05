@@ -34,6 +34,13 @@ namespace Eco.Plugins.EcoLiveDataExporter
             ExportUtil.Instance.DumpRecipesAndItemsToDatabase();
         }
 
+        [ChatCommand("Return dll version", ChatAuthorizationLevel.Admin)]
+        public static void LiveDataVersion(User user)
+        {
+            user.Player.InfoBoxLocStr("Plugin EcoLiveData version is " + EcoLiveData.PluginVersion);
+            Logger.Debug("Plugin EcoLiveData version is " + EcoLiveData.PluginVersion);
+        }
+
         //[ChatCommand("Create test user", ChatAuthorizationLevel.Admin)]
         //public static void CreateUser(User user)
         //{

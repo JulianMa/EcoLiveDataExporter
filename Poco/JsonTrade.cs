@@ -26,15 +26,15 @@ namespace Eco.Plugins.EcoLiveDataExporter.Poco
         public JsonTrade(CurrencyTrade trade)
         {
             OccurredAt = new JsonDateTime(DateTime.UtcNow);
-            ShopName = trade.WorldObjectItem.Name;
-            ShopOwner = trade.ShopOwner.Name;
-            BuyerName = trade.Buyer.Name;
-            SellerName = trade.Seller.Name;
+            ShopName = trade.WorldObjectItem?.Name;
+            ShopOwner = trade.ShopOwner?.Name;
+            BuyerName = trade.Buyer?.Name;
+            SellerName = trade.Seller?.Name;
             NumberOfItems = trade.NumberOfItems;
             IsBuyAction = trade.BoughtOrSold == BoughtOrSold.Buying;
-            ItemTraded = trade.ItemUsed.DisplayName;
+            ItemTraded = trade.ItemUsed?.DisplayName;
             CurrencyAmount = trade.CurrencyAmount;
-            CurrencyName = trade.Currency.Name;
+            CurrencyName = trade.Currency?.Name;
             Time = trade.Time;
         }
     }
