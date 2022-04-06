@@ -1,5 +1,5 @@
 ﻿using Eco.Gameplay.Players;
-using Eco.Gameplay.Systems.Chat;
+using Eco.Gameplay.Systems.Messaging.Chat.Commands;
 using Eco.Plugins.EcoLiveDataExporter.Utils;
 
 namespace Eco.Plugins.EcoLiveDataExporter

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Eco.Gameplay.DynamicValues;
 using Eco.Plugins.EcoLiveDataExporter.Utils;
+using System;
+using Eco.Gameplay.Modules;
+using System.Reflection;
 
 namespace Eco.Plugins.EcoLiveDataExporter.Poco
 {
@@ -19,6 +22,9 @@ namespace Eco.Plugins.EcoLiveDataExporter.Poco
         public List<JsonSkillNeeds> SkillNeeds { get; set; }
         public List<JsonRecipeVariant> Variants { get; set; }
 
+        public string CraftingTable { get; set; }
+        public bool CraftingTableCanUseModules { get; set; }
+
         public JsonRecipe(RecipeFamily recipe)
         {
             Key = recipe.RecipeName;
@@ -27,6 +33,8 @@ namespace Eco.Plugins.EcoLiveDataExporter.Poco
             BaseLaborCost = recipe.Labor;
             BaseXPGain = recipe.ExperienceOnCraft;
             CraftStation = FMZUtils.GetTablesForRecipe(recipe);
+            CraftingTable = recipe.CraftingTable.DisplayName;
+            CraftingTableCanUseModules = recipe.CraftingTable.GetType().IsDefined(typeof(AllowPluginModulesAttribute), false);
             DefaultVariant = recipe.DefaultRecipe.DisplayName;
             NumberOfVariants = recipe.Recipes.Count;
             SkillNeeds = recipe.RequiredSkills.Select(t => new JsonSkillNeeds { Skill = t.SkillItem.DisplayName, Level = t.Level }).ToList();
