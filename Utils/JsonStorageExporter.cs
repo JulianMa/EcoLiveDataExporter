@@ -116,7 +116,7 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
 
         private static Task<HttpResponseMessage> BuildUrlAndSendRequest(string fileBin, string jsonString, Func<string, HttpContent, Task<HttpResponseMessage>> sendAsyncRequest)
         {
-            var url = $"https://api.jsonstorage.net/v1/json/{fileBin}";
+            var url = $"https://api.jsonstorage.net/v1/json/00000000-0000-0000-0000-000000000000/{fileBin}";
             return SendJsonRequest(url, new StringContent(jsonString, Encoding.UTF8, "application/json"), sendAsyncRequest);
         }
 
