@@ -19,11 +19,8 @@ namespace Eco.Plugins.EcoLiveDataExporter
 
     public class ConfigData
     {
-        [Description("Url for the rest api that receives file updates and asynchrounosly writes them to disk."), Category("Database output")]
-        public string DbOutputAppDeprecated { get; set; } = "";
-
         [Description("This identifies your server. Ask Ucat for an id specific to your server.")]
-        public string JsonStorageId { get; set; } = "";
+        public string SecretKey { get; set; } = "";
 
         [Description("Do not allow updating database more than once on each x minutes (this is considered for user command only)"), Category("Database output")]
         public int ThrotleDbUpdatesForMinutes { get; set; } = 1;

@@ -18,10 +18,9 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
         {
             try
             {
-                var allRecipes = RecipeFamily.AllRecipes;
-                Logger.Debug("Started collecting recipe information: " + allRecipes.Length);
-                var recipesObjects = allRecipes.Select(t => new JsonRecipe(t)).ToList();
-                var recipesJson = JsonConvert.SerializeObject(recipesObjects);
+                Logger.Debug("Started collecting recipe information: " + RecipeFamily.AllRecipes.Length);
+                var recipes = new JsonRecipes(RecipeFamily.AllRecipes);
+                var recipesJson = JsonConvert.SerializeObject(recipes);
                 Logger.Debug("Got recipes string");
                 return recipesJson;
             }
@@ -42,7 +41,7 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
                 Logger.Debug("Got craftable tags: " + craftableTags.Count());
                 Logger.Debug("null tags: " + craftableTags.Where(t => t?.DisplayName == null).Count());
 
-                var tags = craftableTags.ToDictionary(t => t?.DisplayName.NotTranslated, t => t?.TaggedItems().Select(t => t.DisplayName.NotTranslated));
+                var tags = new JsonTags(craftableTags);
                 var tagsJson = JsonConvert.SerializeObject(tags);
 
                 Logger.Debug("Got craftable tag items string");

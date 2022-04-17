@@ -52,14 +52,13 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
                     return;
                 }
 
-                await DataExporter.WriteToFile("stores", "/", storesString[0]);
                 await JsonStorageExporter.WriteToJsonStorage("Stores", storesString[0]);
                 Logger.Debug($"Store data exported at {DateTime.Now.ToShortTimeString()}");
 
                 if (!byCommand && Config.Data.SaveHistoricalStoreData)
                 {
                     Logger.Debug("Saving stores data to history file");
-                    await DataExporter.AddToFile("storesHistoric", "/", storesString[1]);
+                    //await DataExporter.AddToFile("storesHistoric", "/", storesString[1]);
                 }
                 Logger.Debug("Finished UpdateStoreData");
             }
@@ -78,7 +77,7 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
                 try
                 {
                     Logger.Debug("Saving trades to file");
-                    await DataExporter.AddToFile("trades", "/", tradesString);
+                    //await DataExporter.AddToFile("trades", "/", tradesString);
                 }
                 catch (Exception e)
                 {
@@ -99,7 +98,6 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
                     return;
                 }
 
-                await DataExporter.WriteToFile("craftingTables", "/", craftingTablesString);
                 await JsonStorageExporter.WriteToJsonStorage("CraftingTables", craftingTablesString);
                 Logger.Debug($"Finished exporting crafting tables data");
             }
@@ -128,7 +126,6 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
                 return;
             }
 
-            await DataExporter.WriteToFile("recipes", "/", recipesString);
             await JsonStorageExporter.WriteToJsonStorage("Recipes", recipesString);
             Logger.Debug($"Recipes exported at {DateTime.Now.ToShortTimeString()}");
         }
@@ -142,7 +139,6 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
                 return;
             }
 
-            await DataExporter.WriteToFile("tags", "/", tagsString);
             await JsonStorageExporter.WriteToJsonStorage("Tags", tagsString);
             Logger.Debug($"Item tags exported at {DateTime.Now.ToShortTimeString()}");
         }

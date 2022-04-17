@@ -9,11 +9,13 @@ namespace Eco.Plugins.EcoLiveDataExporter.Poco
 {
     public class JsonHistCraftingTables
     {
+        public string PluginVersion { get; set; }
         public int Version { get; set; }
         public List<JsonCraftingTable> CraftingTables { get; set; }
         public JsonDateTime ExportedAt { get; set; }
         public JsonHistCraftingTables(IEnumerable<CraftingComponent> craftingComponents)
         {
+            PluginVersion = EcoLiveData.PluginVersion.ToString();
             Version = 2;
             CraftingTables = craftingComponents?.Select(table => new Poco.JsonCraftingTable(table)).ToList() ?? new List<JsonCraftingTable>();
             ExportedAt = new JsonDateTime(DateTime.UtcNow);
