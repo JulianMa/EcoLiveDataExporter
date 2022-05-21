@@ -53,6 +53,7 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
                 }
 
                 await JsonStorageExporter.WriteToJsonStorage("Stores", storesString[0]);
+                await LocalFileExporter.WriteToFile("Stores", storesString[0]);
                 Logger.Debug($"Store data exported at {DateTime.Now.ToShortTimeString()}");
 
                 if (!byCommand && Config.Data.SaveHistoricalStoreData)
@@ -99,6 +100,7 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
                 }
 
                 await JsonStorageExporter.WriteToJsonStorage("CraftingTables", craftingTablesString);
+                await LocalFileExporter.WriteToFile("CraftingTables", craftingTablesString);
                 Logger.Debug($"Finished exporting crafting tables data");
             }
         }
@@ -127,6 +129,7 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
             }
 
             await JsonStorageExporter.WriteToJsonStorage("Recipes", recipesString);
+            await LocalFileExporter.WriteToFile("Recipes", recipesString);
             Logger.Debug($"Recipes exported at {DateTime.Now.ToShortTimeString()}");
         }
 
@@ -140,6 +143,7 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
             }
 
             await JsonStorageExporter.WriteToJsonStorage("Tags", tagsString);
+            await LocalFileExporter.WriteToFile("Tags", tagsString);
             Logger.Debug($"Item tags exported at {DateTime.Now.ToShortTimeString()}");
         }
     }
