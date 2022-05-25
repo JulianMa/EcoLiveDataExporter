@@ -16,9 +16,9 @@ namespace Eco.Plugins.EcoLiveDataExporter.Poco
         //public List<string> Benefits { get; set; }
         public int ModuleLevel { get; set; }
 
-        public float genericMultiplier { get; set; } = 1;
+        public float GenericMultiplier { get; set; } = 1;
 
-        public float skillMultiplier { get; set; } = 1;
+        public float SkillMultiplier { get; set; } = 1;
 
         public JsonCraftingTable (CraftingComponent component)
         {
@@ -41,13 +41,13 @@ namespace Eco.Plugins.EcoLiveDataExporter.Poco
             EfficiencyModule efficencyModule = component?.ResourceEfficiencyModule as EfficiencyModule;
             if (efficencyModule != null)
             {
-                genericMultiplier = efficencyModule.GenericMultiplier;
+                GenericMultiplier = efficencyModule.GenericMultiplier;
                 // On Unspecific Modules, like BU1-BU4, this is always 1, so we set it to the minimum of both.
-                skillMultiplier = Math.Min(efficencyModule.SkillMultiplier, efficencyModule.GenericMultiplier);
+                SkillMultiplier = Math.Min(efficencyModule.SkillMultiplier, efficencyModule.GenericMultiplier);
 
                 float[] multiplierByLevel = new float[] { 0.9f, 0.75f, 0.6f, 0.55f, 0.5f };
 
-                ModuleLevel = Array.FindIndex(multiplierByLevel, (modifier) => modifier == skillMultiplier) + 1;
+                ModuleLevel = Array.FindIndex(multiplierByLevel, (modifier) => modifier == SkillMultiplier) + 1;
             }
             else
             {
