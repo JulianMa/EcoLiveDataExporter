@@ -20,8 +20,13 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
         // Updates or create db file
         public static async Task WriteToJsonStorage(string fileName, string jsonString)
         {
-            Logger.Debug($"Updating bin for db {fileName}.");
-            await BuildUrlAndSendRequest(fileName, jsonString, client.PostAsync);
+            // Only send request when the secretKey is configured
+            if (Config.Data.SecretKey != null && Config.Data.SecretKey.Length > 0)
+            {
+                Logger.Debug($"Updating bin for db {fileName}.");
+                await BuildUrlAndSendRequest(fileName, jsonString, client.PostAsync);
+            }
+                
         }
 
         private static Task<HttpResponseMessage> BuildUrlAndSendRequest(string fileName, string jsonString, Func<string, HttpContent, Task<HttpResponseMessage>> sendAsyncRequest)

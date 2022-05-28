@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using System.Text.Json;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Eco.Plugins.EcoLiveDataExporter.Utils
@@ -9,10 +9,17 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
         // Overrites file on disk
         public static async Task WriteToFile(string fileName, string jsonString)
         {
-            string filePath = $"WebClient/WebBin/Data/{fileName}.json";
-            Logger.Debug($"Writting to {filePath}");
-            await using FileStream createStream = File.Create(filePath);
-            await JsonSerializer.SerializeAsync(createStream, jsonString);
+            // Only send request when the secretKey is configured
+            if (Config.Data.SaveFilesLocally)
+            {
+                string filePath = $"WebClient/WebBin/data/{fileName}.json";
+                Logger.Debug($"Saving file {fileName} to disk.");
+                await using (FileStream fs = File.Create(filePath))
+                {
+                    byte[] info = new UTF8Encoding(true).GetBytes(jsonString);
+                    fs.Write(info, 0, info.Length);
+                }
+            }
         }
     }
 }

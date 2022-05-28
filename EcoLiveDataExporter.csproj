@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>Eco.Plugins.EcoLiveDataExporter</RootNamespace>
-    <Version>2.3.0</Version>
+    <Version>3.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -53,7 +53,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy /y C:\git\EcoLiveDataExporter\bin\Release\net5.0\EcoLiveDataExporter.dll &quot;C:\Program Files (x86)\Steam\steamapps\common\Eco\Eco_Data\Server\Mods&quot;" />
+    <Exec Command="copy /y C:\git\EcoLiveDataExporter\bin\Release\net5.0\EcoLiveDataExporter.dll &quot;C:\Program Files (x86)\Steam\steamapps\common\Eco\Eco_Data\Server\Mods\EcoLiveDataExporter&quot;&#xD;&#xA;copy /y C:\git\EcoLiveDataExporter\bin\Release\net5.0\EcoLiveDataExporter.dll &quot;C:\Users\tacat\Desktop\Versions\Mods\EcoLiveDataExporter&quot;" />
   </Target>
 
 </Project>

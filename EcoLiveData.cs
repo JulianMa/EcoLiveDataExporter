@@ -11,7 +11,7 @@ using Eco.Plugins.EcoLiveDataExporter.Utils;
 public class EcoLiveData : IModKitPlugin, IInitializablePlugin, IShutdownablePlugin, IConfigurablePlugin, IGameActionAware
 {
     public static string Status = "Not initialized";
-    public static readonly Version PluginVersion = new Version(2, 3, 0);
+    public static readonly Version PluginVersion = new Version(3, 0, 1);
     public IPluginConfig PluginConfig => Config.Instance.PluginConfig;
 
     public ThreadSafeAction<object, string> ParamChanged { get; set; }
