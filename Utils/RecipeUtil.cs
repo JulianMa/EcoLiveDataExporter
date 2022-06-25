@@ -54,6 +54,25 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
             }
         }
 
+        public static string GetAllItems()
+        {
+            try
+            {
+                Logger.Debug("Started collecting all items information");
+
+                var items = new JsonItems();
+                var itemsJson = JsonConvert.SerializeObject(items);
+
+                Logger.Debug("Got items string");
+                return itemsJson;
+            }
+            catch (Exception e)
+            {
+                Logger.Error($"Got an exception trying to export all items: \n {e}");
+                return null;
+            }
+        }
+
         public static string GetCraftingTablesString()
         {
             try

@@ -111,11 +111,11 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
             {
                 // Start a task to dump store data right after the throtle period expired (unless task is already created)
                 Logger.Debug($"Exporting Recipes");
-                ThrotleTask = ExportRecipes().ContinueWith((tsk) => ExportItems());
+                ThrotleTask = ExportRecipes().ContinueWith((tsk) => ExportItems()).ContinueWith(tsk => ExportTags());
             } else
             {
                 Logger.Debug($"Not exporting recipes since there is already an export in progress. Exporting when finished");
-                ThrotleTask.ContinueWith((tsk) => ExportRecipes()).ContinueWith((tsk) => ExportItems());
+                ThrotleTask.ContinueWith((tsk) => ExportRecipes()).ContinueWith((tsk) => ExportItems()).ContinueWith(tsk => ExportTags());
             }
         }
 
@@ -133,7 +133,7 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
             Logger.Debug($"Recipes exported at {DateTime.Now.ToShortTimeString()}");
         }
 
-        public async Task ExportItems()
+        public async Task ExportTags()
         {
             // Overrides current recipes in file
             var tagsString = RecipeUtil.GetCraftableTagItems();
@@ -145,6 +145,19 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
             await JsonStorageExporter.WriteToJsonStorage("Tags", tagsString);
             await LocalFileExporter.WriteToFile("Tags", tagsString);
             Logger.Debug($"Item tags exported at {DateTime.Now.ToShortTimeString()}");
+        }
+
+        public async Task ExportItems()
+        {
+            var itemsString = RecipeUtil.GetAllItems();
+            if (itemsString == null || itemsString.Length == 0)
+            {
+                return;
+            }
+
+            await JsonStorageExporter.WriteToJsonStorage("AllItems", itemsString);
+            await LocalFileExporter.WriteToFile("AllItems", itemsString);
+            Logger.Debug($"All items exported at {DateTime.Now.ToShortTimeString()}");
         }
     }
 }
