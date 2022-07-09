@@ -32,12 +32,19 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
         public async Task ExportLiveData(bool byCommand = false)
         {
             LastExport = DateTime.Now;
+            try { 
+                await ExportLiveStoreData();
+                await ExportLiveTradesData();
+                await ExportLiveCraftingTablesData();
 
-            await ExportLiveStoreData();
-            await ExportLiveTradesData();
-            await ExportLiveCraftingTablesData();
-
-            EcoLiveData.Status = $"Live data exported at {DateTime.Now.ToShortTimeString()}";
+                EcoLiveData.Status = $"Live data exported at {DateTime.Now.ToShortTimeString()}";
+            }
+            catch (Exception e)
+            {
+                Logger.Error($"Caught an exception while exporting live data. (No exception should reach here, just a fail safe) with stacktrace: \n {e}");
+                EcoLiveData.Status = $"Failed to export Live data at {DateTime.Now.ToShortTimeString()}";
+            }
+            
         }
 
         private async Task ExportLiveStoreData(bool byCommand = false)
