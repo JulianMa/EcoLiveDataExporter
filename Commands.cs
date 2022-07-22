@@ -4,7 +4,8 @@ using Eco.Plugins.EcoLiveDataExporter.Utils;
 
 namespace Eco.Plugins.EcoLiveDataExporter
 {
-    public partial class Commands : IChatCommandHandler
+    [ChatCommandHandler]
+    public partial class Commands
     {
         [ChatCommand("Start fething live data and exporting it to json database", ChatAuthorizationLevel.Admin)]
         public static void StartLiveDataTimers(User user)

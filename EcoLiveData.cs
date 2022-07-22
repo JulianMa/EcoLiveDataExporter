@@ -4,14 +4,18 @@ using System.Threading.Tasks;
 using Eco.Core.Plugins;
 using Eco.Core.Plugins.Interfaces;
 using Eco.Core.Utils;
+using Eco.Gameplay.Aliases;
 using Eco.Gameplay.GameActions;
+using Eco.Gameplay.Property;
 using Eco.Plugins.EcoLiveDataExporter;
 using Eco.Plugins.EcoLiveDataExporter.ActionsProcessor;
 using Eco.Plugins.EcoLiveDataExporter.Utils;
+
 public class EcoLiveData : IModKitPlugin, IInitializablePlugin, IShutdownablePlugin, IConfigurablePlugin, IGameActionAware
 {
     public static string Status = "Not initialized";
-    public static readonly Version PluginVersion = new Version(3, 1, 2);
+
+    public static readonly Version PluginVersion = new Version(3, 2, 0);
     public IPluginConfig PluginConfig => Config.Instance.PluginConfig;
 
     public ThreadSafeAction<object, string> ParamChanged { get; set; }
@@ -41,8 +45,7 @@ public class EcoLiveData : IModKitPlugin, IInitializablePlugin, IShutdownablePlu
         Status = "EcoLiveDataExporter fully Shutdown!";
         return Task.CompletedTask;
     }
-
-    public LazyResult ShouldOverrideAuth(GameAction action)
+    public LazyResult ShouldOverrideAuth(IAlias alias, IOwned property, GameAction action)
     {
         return new LazyResult();
     }
@@ -55,4 +58,6 @@ public class EcoLiveData : IModKitPlugin, IInitializablePlugin, IShutdownablePlu
             case CurrencyTrade currencyTrade: TradeActionProcessor.Process(currencyTrade); break;
         }
     }
+
+    public string GetCategory() => "EcoWorld Mods";
 }

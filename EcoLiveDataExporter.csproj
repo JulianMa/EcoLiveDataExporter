@@ -1,59 +1,59 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>Eco.Plugins.EcoLiveDataExporter</RootNamespace>
-    <Version>3.1.2</Version>
+    <Version>3.2.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="Eco.Core">
-      <HintPath>..\..\Users\tacat\Downloads\EcoModKit_v0.9.5.0-beta\ReferenceAssemblies\Eco.Core.dll</HintPath>
+      <HintPath>..\..\Users\tacat\Downloads\EcoModKit_v0.9.6.0-beta\ReferenceAssemblies\Eco.Core.dll</HintPath>
     </Reference>
     <Reference Include="Eco.Gameplay">
-      <HintPath>..\..\Users\tacat\Downloads\EcoModKit_v0.9.5.0-beta\ReferenceAssemblies\Eco.Gameplay.dll</HintPath>
+      <HintPath>..\..\Users\tacat\Downloads\EcoModKit_v0.9.6.0-beta\ReferenceAssemblies\Eco.Gameplay.dll</HintPath>
     </Reference>
     <Reference Include="Eco.ModKit">
-      <HintPath>..\..\Users\tacat\Downloads\EcoModKit_v0.9.5.0-beta\ReferenceAssemblies\Eco.ModKit.dll</HintPath>
+      <HintPath>..\..\Users\tacat\Downloads\EcoModKit_v0.9.6.0-beta\ReferenceAssemblies\Eco.ModKit.dll</HintPath>
     </Reference>
     <Reference Include="Eco.Mods">
-      <HintPath>..\..\Users\tacat\Downloads\EcoModKit_v0.9.5.0-beta\ReferenceAssemblies\Eco.Mods.dll</HintPath>
+      <HintPath>..\..\Users\tacat\Downloads\EcoModKit_v0.9.6.0-beta\ReferenceAssemblies\Eco.Mods.dll</HintPath>
     </Reference>
     <Reference Include="Eco.Networking.ENet">
-      <HintPath>..\..\Users\tacat\Downloads\EcoModKit_v0.9.5.0-beta\ReferenceAssemblies\Eco.Networking.ENet.dll</HintPath>
+      <HintPath>..\..\Users\tacat\Downloads\EcoModKit_v0.9.6.0-beta\ReferenceAssemblies\Eco.Networking.ENet.dll</HintPath>
     </Reference>
     <Reference Include="Eco.Plugins">
-      <HintPath>..\..\Users\tacat\Downloads\EcoModKit_v0.9.5.0-beta\ReferenceAssemblies\Eco.Plugins.dll</HintPath>
+      <HintPath>..\..\Users\tacat\Downloads\EcoModKit_v0.9.6.0-beta\ReferenceAssemblies\Eco.Plugins.dll</HintPath>
     </Reference>
     <Reference Include="Eco.Shared">
-      <HintPath>..\..\Users\tacat\Downloads\EcoModKit_v0.9.5.0-beta\ReferenceAssemblies\Eco.Shared.dll</HintPath>
+      <HintPath>..\..\Users\tacat\Downloads\EcoModKit_v0.9.6.0-beta\ReferenceAssemblies\Eco.Shared.dll</HintPath>
     </Reference>
     <Reference Include="Eco.Simulation">
-      <HintPath>..\..\Users\tacat\Downloads\EcoModKit_v0.9.5.0-beta\ReferenceAssemblies\Eco.Simulation.dll</HintPath>
+      <HintPath>..\..\Users\tacat\Downloads\EcoModKit_v0.9.6.0-beta\ReferenceAssemblies\Eco.Simulation.dll</HintPath>
     </Reference>
     <Reference Include="Eco.Stats">
-      <HintPath>..\..\Users\tacat\Downloads\EcoModKit_v0.9.5.0-beta\ReferenceAssemblies\Eco.Stats.dll</HintPath>
+      <HintPath>..\..\Users\tacat\Downloads\EcoModKit_v0.9.6.0-beta\ReferenceAssemblies\Eco.Stats.dll</HintPath>
     </Reference>
     <Reference Include="Eco.WebServer">
-      <HintPath>..\..\Users\tacat\Downloads\EcoModKit_v0.9.5.0-beta\ReferenceAssemblies\Eco.WebServer.dll</HintPath>
+      <HintPath>..\..\Users\tacat\Downloads\EcoModKit_v0.9.6.0-beta\ReferenceAssemblies\Eco.WebServer.dll</HintPath>
     </Reference>
     <Reference Include="Eco.World">
-      <HintPath>..\..\Users\tacat\Downloads\EcoModKit_v0.9.5.0-beta\ReferenceAssemblies\Eco.World.dll</HintPath>
+      <HintPath>..\..\Users\tacat\Downloads\EcoModKit_v0.9.6.0-beta\ReferenceAssemblies\Eco.World.dll</HintPath>
     </Reference>
     <Reference Include="Eco.WorldGenerator">
-      <HintPath>..\..\Users\tacat\Downloads\EcoModKit_v0.9.5.0-beta\ReferenceAssemblies\Eco.WorldGenerator.dll</HintPath>
+      <HintPath>..\..\Users\tacat\Downloads\EcoModKit_v0.9.6.0-beta\ReferenceAssemblies\Eco.WorldGenerator.dll</HintPath>
     </Reference>
     <Reference Include="EcoServer">
-      <HintPath>..\..\Users\tacat\Downloads\EcoModKit_v0.9.5.0-beta\ReferenceAssemblies\EcoServer.dll</HintPath>
+      <HintPath>..\..\Users\tacat\Downloads\EcoModKit_v0.9.6.0-beta\ReferenceAssemblies\EcoServer.dll</HintPath>
     </Reference>
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy /y C:\git\EcoLiveDataExporter\bin\Release\net5.0\EcoLiveDataExporter.dll &quot;C:\Program Files (x86)\Steam\steamapps\common\Eco\Eco_Data\Server\Mods\EcoLiveDataExporter\EcoLiveDataExporter.dll&quot;&#xD;&#xA;copy /y C:\git\EcoLiveDataExporter\bin\Release\net5.0\EcoLiveDataExporter.dll &quot;C:\Users\tacat\Desktop\Versions\Mods\EcoLiveDataExporter\EcoLiveDataExporter.dll&quot;" />
+    <Exec Command="copy /y C:\git\EcoLiveDataExporter\bin\Release\net6.0\EcoLiveDataExporter.dll &quot;C:\Program Files (x86)\Steam\steamapps\common\Eco\Eco_Data\Server\Mods\EcoLiveDataExporter\EcoLiveDataExporter.dll&quot;&#xD;&#xA;copy /y C:\git\EcoLiveDataExporter\bin\Release\net6.0\EcoLiveDataExporter.dll &quot;C:\Users\tacat\Desktop\Versions\Mods\EcoLiveDataExporter\EcoLiveDataExporter.dll&quot;&#xD;&#xA;copy /y C:\git\EcoLiveDataExporter\bin\Release\net6.0\EcoLiveDataExporter.dll &quot;C:\Users\tacat\Downloads\EcoServerPC_v0.9.6.0-beta-staging-2362\Mods\EcoLiveDataExporter&quot;" />
   </Target>
 
 </Project>
