@@ -21,7 +21,7 @@ namespace Eco.Plugins.EcoLiveDataExporter.Poco
             ExportedAt = new JsonDateTime(DateTime.UtcNow);
 
             Logger.Debug("Exporting all items and their Tags: " + Item.AllItems.Count());
-            AllItems = Item.AllItems.ToDictionary(t => t.DisplayName.NotTranslated, t => new JsonItem(t));
+            AllItems = Item.AllItems.GroupBy(t => t.DisplayName.NotTranslated, StringComparer.OrdinalIgnoreCase).ToDictionary(t => t.Key, t => new JsonItem(t.First()));
         }
     }
 }
