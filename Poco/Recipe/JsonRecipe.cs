@@ -34,7 +34,7 @@ namespace Eco.Plugins.EcoLiveDataExporter.Poco
             BaseXPGain = recipe.ExperienceOnCraft;
             CraftStation = FMZUtils.GetTablesForRecipe(recipe);
             CraftingTable = recipe.CraftingTable.DisplayName;
-            CraftingTableCanUseModules = recipe.CraftingTable.GetType().IsDefined(typeof(AllowPluginModulesAttribute), false);
+            CraftingTableCanUseModules = recipe.CraftingTable?.GetType()?.IsDefined(typeof(AllowPluginModulesAttribute), false) ?? false;
             DefaultVariant = recipe.DefaultRecipe.DisplayName;
             NumberOfVariants = recipe.Recipes.Count;
             SkillNeeds = recipe.RequiredSkills.Select(t => new JsonSkillNeeds { Skill = t.SkillItem.DisplayName, Level = t.Level }).ToList();
