@@ -26,32 +26,43 @@ namespace Eco.Plugins.EcoLiveDataExporter.Poco
 
         public JsonRecipe(RecipeFamily recipe)
         {
-            Key = recipe.RecipeName;
-            Untranslated = recipe.DisplayName.NotTranslated;
-            BaseCraftTime = recipe.CraftMinutes?.GetBaseValue ?? 0;
-            BaseLaborCost = recipe.Labor;
-            BaseXPGain = recipe.ExperienceOnCraft;
-            CraftingTable = recipe.CraftingTable.DisplayName;
-            CraftingTableCanUseModules = recipe.CraftingTable?.GetType()?.IsDefined(typeof(AllowPluginModulesAttribute), false) ?? false;
-            DefaultVariant = recipe.DefaultRecipe.DisplayName;
-            NumberOfVariants = recipe.Recipes.Count;
-            SkillNeeds = recipe.RequiredSkills.Select(t => new JsonSkillNeeds { Skill = t.SkillItem.DisplayName, Level = t.Level }).ToList();
-            Variants = recipe.Recipes.Select(recipe => new JsonRecipeVariant {
-                Key = recipe.Name,
-                Name = recipe.DisplayName.NotTranslated,
-                Ingredients = recipe.Ingredients.Select(ingredient => new JsonRecipeIngredient {
-                    IsSpecificItem = ingredient.IsSpecificItem,
-                    Tag = ingredient.Tag?.DisplayName,
-                    Name = ingredient.Item?.DisplayName.NotTranslated ?? "",
-                    Ammount = ingredient.Quantity?.GetBaseValue ?? 0,
-                    IsStatic = ingredient.Quantity is ConstantValue
-                }).ToList(),
-                Products = recipe.Items.Select(prod => new JsonRecipeProduct
+            try
+            {
+                Key = recipe.RecipeName;
+                Untranslated = recipe.DisplayName.NotTranslated;
+                BaseCraftTime = recipe.CraftMinutes?.GetBaseValue ?? 0;
+                BaseLaborCost = recipe.Labor;
+                BaseXPGain = recipe.ExperienceOnCraft;
+                CraftingTable = recipe.CraftingTable.DisplayName;
+                CraftingTableCanUseModules = recipe.CraftingTable?.GetType()?.IsDefined(typeof(AllowPluginModulesAttribute), false) ?? false;
+                DefaultVariant = recipe.DefaultRecipe.DisplayName;
+                NumberOfVariants = recipe.Recipes.Count;
+                SkillNeeds = recipe.RequiredSkills.Select(t => new JsonSkillNeeds { Skill = t.SkillItem.DisplayName, Level = t.Level }).ToList();
+                Variants = recipe.Recipes.Select(recipe => new JsonRecipeVariant
                 {
-                    Name = prod.Item.DisplayName,
-                    Ammount = prod.Quantity.GetBaseValue,
-                }).ToList()
-            }).ToList();
+                    Key = recipe.Name,
+                    Name = recipe.DisplayName.NotTranslated,
+                    Ingredients = recipe.Ingredients.Select(ingredient => new JsonRecipeIngredient
+                    {
+                        IsSpecificItem = ingredient.IsSpecificItem,
+                        Tag = ingredient.Tag?.DisplayName,
+                        Name = ingredient.Item?.DisplayName.NotTranslated ?? "",
+                        Ammount = ingredient.Quantity?.GetBaseValue ?? 0,
+                        IsStatic = ingredient.Quantity is ConstantValue
+                    }).ToList(),
+                    Products = recipe.Items.Select(prod => new JsonRecipeProduct
+                    {
+                        Name = prod.Item.DisplayName,
+                        Ammount = prod.Quantity.GetBaseValue,
+                    }).ToList()
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error($"There was an exception exporting recipe: {recipe?.DisplayName.NotTranslated} ({recipe?.RecipeName})");
+
+                throw ex;
+            }
         }
     }
 }
