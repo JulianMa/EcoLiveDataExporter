@@ -16,14 +16,13 @@ namespace Eco.Plugins.EcoLiveDataExporter.Poco
         public float BaseCraftTime { get; set; }
         public float BaseLaborCost { get; set; }
         public float BaseXPGain { get; set; }
-        public List<string> CraftStation { get; set; }
+        public string CraftingTable { get; set; }
+        public bool CraftingTableCanUseModules { get; set; }
         public string DefaultVariant { get; set; }
         public int NumberOfVariants { get; set; }
         public List<JsonSkillNeeds> SkillNeeds { get; set; }
         public List<JsonRecipeVariant> Variants { get; set; }
 
-        public string CraftingTable { get; set; }
-        public bool CraftingTableCanUseModules { get; set; }
 
         public JsonRecipe(RecipeFamily recipe)
         {
@@ -32,7 +31,6 @@ namespace Eco.Plugins.EcoLiveDataExporter.Poco
             BaseCraftTime = recipe.CraftMinutes?.GetBaseValue ?? 0;
             BaseLaborCost = recipe.Labor;
             BaseXPGain = recipe.ExperienceOnCraft;
-            CraftStation = FMZUtils.GetTablesForRecipe(recipe);
             CraftingTable = recipe.CraftingTable.DisplayName;
             CraftingTableCanUseModules = recipe.CraftingTable?.GetType()?.IsDefined(typeof(AllowPluginModulesAttribute), false) ?? false;
             DefaultVariant = recipe.DefaultRecipe.DisplayName;
