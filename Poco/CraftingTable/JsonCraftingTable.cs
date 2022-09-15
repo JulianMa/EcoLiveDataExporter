@@ -15,6 +15,7 @@ namespace Eco.Plugins.EcoLiveDataExporter.Poco
         public string ResourceEfficiencyModule { get; set; }
         public string OwnerName { get; set; }
         public List<string> AllowedUpgrades { get; set; }
+        public string ModuleSkillType { get; set; } = null;
         public int ModuleLevel { get; set; }
 
         public float GenericMultiplier { get; set; } = 1;
@@ -44,6 +45,12 @@ namespace Eco.Plugins.EcoLiveDataExporter.Poco
             * All Upgrades i looked into in `__core__\AutoGen\PluginModule` are Implemented as EfficiencyModule.
             */
             EfficiencyModule efficencyModule = component?.ResourceEfficiencyModule as EfficiencyModule;
+            
+            if(efficencyModule.SkillType != null)
+            {
+                ModuleSkillType = Item.Get(efficencyModule.SkillType).DisplayName;
+            }
+            
             if (efficencyModule != null)
             {
                 GenericMultiplier = efficencyModule.GenericMultiplier;
