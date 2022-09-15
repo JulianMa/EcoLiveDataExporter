@@ -1,10 +1,11 @@
 ﻿using Eco.Gameplay.Components;
+using Eco.Gameplay.Items;
 using Eco.Gameplay.Modules;
 using Eco.Plugins.EcoLiveDataExporter.Utils;
+using Eco.Shared.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Eco.Plugins.EcoLiveDataExporter.Poco
 {
@@ -13,7 +14,7 @@ namespace Eco.Plugins.EcoLiveDataExporter.Poco
         public string TableName { get; set; }
         public string ResourceEfficiencyModule { get; set; }
         public string OwnerName { get; set; }
-        //public List<string> Benefits { get; set; }
+        public List<string> AllowedUpgrades { get; set; }
         public int ModuleLevel { get; set; }
 
         public float GenericMultiplier { get; set; } = 1;
@@ -27,6 +28,10 @@ namespace Eco.Plugins.EcoLiveDataExporter.Poco
             
             OwnerName = component?.Parent?.Owners?.Name;
             ModuleLevel = 0;
+
+            // Extraction works the same way it is done in Eco itself
+            var allowedModuleStackables = ItemAttribute.Get<AllowPluginModulesAttribute>(component?.Parent.CreatingItem?.GetType())?.GetStackables()?.ToArray() ?? new[] { TagManager.GetTagOrFail("Upgrade") };
+            AllowedUpgrades = (List<string>)allowedModuleStackables.Select(x => x.DisplayName.ToString()).AsList();
 
             if (null == (component?.ResourceEfficiencyModule))
             {
