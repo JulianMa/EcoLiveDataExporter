@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>Eco.Plugins.EcoLiveDataExporter</RootNamespace>
-    <Version>3.2.1</Version>
+    <Version>3.2.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
