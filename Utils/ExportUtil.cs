@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
+using Eco.Plugins.EcoLiveDataExporter.Poco;
 
 namespace Eco.Plugins.EcoLiveDataExporter.Utils
 {
@@ -36,6 +38,10 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
                 await ExportLiveStoreData();
                 await ExportLiveTradesData();
                 await ExportLiveCraftingTablesData();
+                if(Config.Data.SaveBlockCountData)
+                {
+                    await BlockCountUtils.Instance.ScanWorld();
+                }
 
                 EcoLiveData.Status = $"Live data exported at {DateTime.Now.ToShortTimeString()}";
             }
@@ -72,20 +78,31 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
             }
         }
 
+        /**
+         * generates a file name based on the date to append the accumulated trades
+         *
+         * @return Task: 
+        **/
         public async Task ExportLiveTradesData()
         {
             if (Config.Data.SaveHistoricalTradesData)
             {
                 Logger.Debug("Exporting trades data");
-                var tradesString = TradeUtil.GetTradesString();
+                var tradesString = TradeUtil.GetTradesStringCSV();
                 if (tradesString == null || tradesString.Length == 0)
                 {
                     return;
                 }
                 try
                 {
+                    var time = new JsonDateTime(DateTime.UtcNow);
                     Logger.Debug("Saving trades to file");
-                    //await DataExporter.AddToFile("trades", "/", tradesString);
+                    var fileName = $"tradeHistory{time.Year}{time.Month}{time.Day}";
+                    if(!TradeUtil.AllTradeHistoryFiles.Contains(fileName))
+                    {
+                        await LocalFileExporter.AppendToFile("tradeHistory", fileName);
+                    }
+                    await LocalFileExporter.AppendToFile(fileName, tradesString);
                 }
                 catch (Exception e)
                 {

@@ -43,6 +43,9 @@ namespace Eco.Plugins.EcoLiveDataExporter
         [Description("Enables saving crafting tables data - useful for list user tables and their upgrades."), Category("Recurrent data export")]
         public bool SaveCraftingTablesData { get; set; } = true;
 
+        [Description("Enables saving block counting data - useful for list left blocks in the world."), Category("Recurrent data export")]
+        public bool SaveBlockCountData { get; set; } = false;
+
         [Description("Enables debugging output to the console."), Category("Debugging")]
         public bool Debug { get; set; } = false;
     }

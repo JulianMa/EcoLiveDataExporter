@@ -37,6 +37,7 @@ public class EcoLiveData : IModKitPlugin, IInitializablePlugin, IShutdownablePlu
         ExportUtil.Instance.DumpRecipesAndItemsToDatabase();
         Status = "EcoLiveDataExporter fully initialized!";
         ActionUtil.AddListener(this);
+        TradeUtil.Initialize();
     }
     public Task ShutdownAsync()
     {
@@ -56,6 +57,8 @@ public class EcoLiveData : IModKitPlugin, IInitializablePlugin, IShutdownablePlu
         switch (action)
         {
             case CurrencyTrade currencyTrade: TradeActionProcessor.Process(currencyTrade); break;
+            case BarterTrade barterTrade: TradeActionProcessor.Process(barterTrade); break;
+            case TransferMoney transferMoney: TradeActionProcessor.Process(transferMoney) ; break;
         }
     }
 

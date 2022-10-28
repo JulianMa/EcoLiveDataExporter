@@ -13,7 +13,19 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
 {
     public class TradeUtil
     {
+        public static HashSet<string> AllTradeHistoryFiles { get; set; }
         public static IEnumerable<StoreComponent> Stores => WorldObjectUtil.AllObjsWithComponent<StoreComponent>();
+
+        public static void Initialize()
+        {
+            var allEntries = LocalFileExporter.ReadFileLines("tradeHistory");
+            AllTradeHistoryFiles = new HashSet<string>();
+            if(allEntries == null) return;
+            foreach (var entry in allEntries)
+            {
+                AllTradeHistoryFiles.Add(entry);
+            }
+        }
 
         public static string[] GetStoresString()
         {
@@ -52,6 +64,23 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
                 Logger.Error($"Got an exception trying to export trades data: \n {e}");
                 return null;
             }
+        }
+
+        /**
+         * generates a string of all accumulated trades in a csv style with newLines
+         * 
+         * @return string: 
+        **/
+        public static string GetTradesStringCSV()
+        {
+            if (TradeActionProcessor.TradesToProcess.Count == 0)
+            {
+                Logger.Debug("There are no trades data to export!");
+                return null;
+            }
+            String tradeHistory = string.Join(Environment.NewLine, TradeActionProcessor.TradesToProcess);
+            TradeActionProcessor.TradesToProcess = new List<JsonTrade>();
+            return tradeHistory;
         }
     }
 }
