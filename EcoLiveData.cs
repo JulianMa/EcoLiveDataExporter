@@ -15,7 +15,7 @@ public class EcoLiveData : IModKitPlugin, IInitializablePlugin, IShutdownablePlu
 {
     public static string Status = "Not initialized";
 
-    public static readonly Version PluginVersion = new Version(3, 3, 0);
+    public static readonly Version PluginVersion = new Version(3, 3, 1);
     public IPluginConfig PluginConfig => Config.Instance.PluginConfig;
 
     public ThreadSafeAction<object, string> ParamChanged { get; set; }

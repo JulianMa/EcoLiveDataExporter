@@ -3,3 +3,5 @@ obj/*
 .vs/EcoLiveDataExporter/DesignTimeBuild/
 .vs/EcoLiveDataExporter/v16/
 .vs/EcoLiveDataExporter/v17/
+*.lock
+*.vsidx
