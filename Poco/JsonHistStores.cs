@@ -1,5 +1,4 @@
-﻿using Eco.Gameplay.Components;
-
+﻿using Eco.Gameplay.Components.Store;
 using System;
 using System.Collections.Generic;
 using System.Linq;

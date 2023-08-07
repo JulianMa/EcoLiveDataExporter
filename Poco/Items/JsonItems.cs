@@ -20,8 +20,8 @@ namespace Eco.Plugins.EcoLiveDataExporter.Poco
             Version = 1;
             ExportedAt = new JsonDateTime(DateTime.UtcNow);
 
-            Logger.Debug("Exporting all items and their Tags: " + Item.AllItems.Count());
-            AllItems = Item.AllItems.GroupBy(t => t.DisplayName.NotTranslated, StringComparer.OrdinalIgnoreCase).ToDictionary(t => t.Key, t => new JsonItem(t.First()));
+            Logger.Debug("Exporting all items and their Tags: " + Item.AllItemsIncludingHidden.Length);
+            AllItems = Item.AllItemsIncludingHidden.GroupBy(t => t.DisplayName.NotTranslated, StringComparer.OrdinalIgnoreCase).ToDictionary(t => t.Key, t => new JsonItem(t.First()));
         }
     }
 }

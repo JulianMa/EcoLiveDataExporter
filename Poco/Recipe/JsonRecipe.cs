@@ -59,9 +59,9 @@ namespace Eco.Plugins.EcoLiveDataExporter.Poco
             }
             catch (Exception ex)
             {
-                Logger.Error($"There was an exception exporting recipe: {recipe?.DisplayName.NotTranslated} ({recipe?.RecipeName})");
+                Logger.Error($"There was an exception exporting recipe: {recipe?.DisplayName.NotTranslated} ({recipe?.RecipeName}): {ex.Message}");
 
-                throw ex;
+                throw;
             }
         }
     }

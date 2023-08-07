@@ -1,5 +1,6 @@
 ﻿using Eco.Gameplay.Components;
-
+using Eco.Gameplay.Components.Store;
+using Eco.Plugins.EcoLiveDataExporter.Utils;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,8 +19,15 @@ namespace Eco.Plugins.EcoLiveDataExporter.Poco
         {
             Name = storeComp?.Parent?.Name;
             Owner = storeComp?.Parent?.Owners?.Name;
-            Balance = storeComp?.Balance;
-            CurrencyName = storeComp?.CurrencyName;
+            try
+            {
+                Balance = storeComp?.Balance;
+                CurrencyName = storeComp?.CurrencyName;
+            }
+            catch (System.Exception ex)
+            {
+                Logger.Debug($"There was a handled exception trying to read store {Name}: {ex.Message} \n{ex.StackTrace}");
+            }
             Enabled = storeComp?.Enabled ?? false;
             AllOffers = storeComp?.AllOffers?.Select(t => new JsonTradeOffer(t))?.ToList();
         }

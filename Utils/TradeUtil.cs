@@ -1,4 +1,5 @@
 ﻿using Eco.Gameplay.Components;
+using Eco.Gameplay.Components.Store;
 using Eco.Gameplay.Objects;
 using Eco.Plugins.EcoLiveDataExporter.ActionsProcessor;
 using Eco.Plugins.EcoLiveDataExporter.Poco;
@@ -35,9 +36,9 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
                 var histStores = new JsonHistStores(Stores);
                 var storesJson = JsonConvert.SerializeObject(histStores);
                 // We serialize an array of history so that when we patch the db it add's it to the existing array
-                var histStoresJson = Config.Data.SaveHistoricalStoreData ? JsonConvert.SerializeObject(new JsonPatchHelper<JsonHistStores>(histStores)) : "";
+                //var histStoresJson = Config.Data.SaveHistoricalStoreData ? JsonConvert.SerializeObject(new JsonPatchHelper<JsonHistStores>(histStores)) : "";
                 Logger.Debug("Got stores string");
-                return new string[] { storesJson, histStoresJson };
+                return new string[] { storesJson /*, histStoresJson*/ };
             }
             catch (Exception e)
             {
