@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Eco.Gameplay.Items.Recipes;
 
 namespace Eco.Plugins.EcoLiveDataExporter.Utils
 {
@@ -18,8 +19,8 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
         {
             try
             {
-                Logger.Debug("Started collecting recipe information: " + RecipeFamily.AllRecipes.Length);
-                var recipes = new JsonRecipes(RecipeFamily.AllRecipes);
+                Logger.Debug("Started collecting recipe information: " + RecipeManager.AllRecipeFamilies.Length);
+                var recipes = new JsonRecipes(RecipeManager.AllRecipeFamilies);
                 var recipesJson = JsonConvert.SerializeObject(recipes);
                 Logger.Debug("Got recipes string");
                 return recipesJson;
@@ -35,7 +36,7 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
         {
             try
             {
-                var allRecipes = RecipeFamily.AllRecipes;
+                var allRecipes = RecipeManager.AllRecipeFamilies;
                 Logger.Debug("Started collecting recipe tags information: " + allRecipes.Length);
                 var craftableTags = allRecipes.SelectMany(t => t.Recipes.SelectMany(t => t.Ingredients.Select(t => t.Tag))).Where(t => t?.DisplayName != null).Distinct();
                 Logger.Debug("Got craftable tags: " + craftableTags.Count());

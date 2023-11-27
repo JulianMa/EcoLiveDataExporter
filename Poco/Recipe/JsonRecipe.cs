@@ -6,6 +6,7 @@ using Eco.Plugins.EcoLiveDataExporter.Utils;
 using System;
 using Eco.Gameplay.Modules;
 using System.Reflection;
+using Eco.Gameplay.Items.Recipes;
 
 namespace Eco.Plugins.EcoLiveDataExporter.Poco
 {
@@ -50,7 +51,7 @@ namespace Eco.Plugins.EcoLiveDataExporter.Poco
                         Ammount = ingredient.Quantity?.GetBaseValue ?? 0,
                         IsStatic = ingredient.Quantity is ConstantValue
                     }).ToList(),
-                    Products = recipe.Items.Select(prod => new JsonRecipeProduct
+                    Products = recipe.Products.Select(prod => new JsonRecipeProduct
                     {
                         Name = prod.Item.DisplayName,
                         Ammount = prod.Quantity.GetBaseValue,

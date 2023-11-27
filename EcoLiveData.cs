@@ -10,8 +10,9 @@ using Eco.Gameplay.Property;
 using Eco.Plugins.EcoLiveDataExporter;
 using Eco.Plugins.EcoLiveDataExporter.ActionsProcessor;
 using Eco.Plugins.EcoLiveDataExporter.Utils;
+using Eco.Shared.Localization;
 
-public class EcoLiveData : IModKitPlugin, IInitializablePlugin, IShutdownablePlugin, IConfigurablePlugin, IGameActionAware
+public class EcoLiveData : IModKitPlugin, IInitializablePlugin, IShutdownablePlugin, IConfigurablePlugin, IGameActionAware, IWebPlugin
 {
     public static string Status = "Not initialized";
 
@@ -63,4 +64,28 @@ public class EcoLiveData : IModKitPlugin, IInitializablePlugin, IShutdownablePlu
     }
 
     public string GetCategory() => "EcoWorld Mods";
+    public LocString GetMenuTitle()
+    {
+        return new LocString("Eco-Calculcator");
+    }
+
+    public string GetPluginIndexUrl()
+    {
+        return "EcoLiveData/assets.index.html";
+    }
+
+    public string GetFontAwesomeIcon()
+    {
+        return "fa fa-fw fa-calculator";
+    }
+
+    public string GetStaticFilesPath()
+    {
+        return null;
+    }
+
+    public string GetEmbeddedResourceNamespace()
+    {
+        return "Eco.Plugins.EcoLiveDataExporter";
+    }
 }
