@@ -29,7 +29,7 @@ namespace Eco.Plugins.EcoLiveDataExporter
         public int ThrotleDbUpdatesForMinutes { get; set; } = 1;
 
         [Description("Export util runs each x minutes."), Category("Recurrent data export")]
-        public int ExportUtilTimer { get; set; } = 5;
+        public int ExportUtilTimer { get; set; } = 1;
 
         [Description("Enables saving store data - store prices are used for price calculator."), Category("Recurrent data export")]
         public bool SaveStoreData { get; set; } = true;

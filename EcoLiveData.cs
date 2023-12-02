@@ -71,7 +71,7 @@ public class EcoLiveData : IModKitPlugin, IInitializablePlugin, IShutdownablePlu
 
     public string GetPluginIndexUrl()
     {
-        return "EcoLiveData/assets.index.html";
+        return "EcoLiveData/index.html";
     }
 
     public string GetFontAwesomeIcon()
@@ -86,6 +86,6 @@ public class EcoLiveData : IModKitPlugin, IInitializablePlugin, IShutdownablePlu
 
     public string GetEmbeddedResourceNamespace()
     {
-        return "Eco.Plugins.EcoLiveDataExporter";
+        return "Eco.Plugins.EcoLiveDataExporter.assets";
     }
 }

@@ -7,53 +7,59 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.8" />
+        <PackageReference Include="NLog.Web.AspNetCore" Version="4.13.0" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
     </ItemGroup>
 
     <ItemGroup>
-        <Reference Include="Eco.Core">
-            <HintPath>..\EcoModKit_v0.10.0.0-beta-staging-2817\ReferenceAssemblies\Eco.Core.dll</HintPath>
-        </Reference>
-        <Reference Include="Eco.Gameplay">
-            <HintPath>..\EcoModKit_v0.10.0.0-beta-staging-2817\ReferenceAssemblies\Eco.Gameplay.dll</HintPath>
-        </Reference>
-        <Reference Include="Eco.ModKit">
-            <HintPath>..\EcoModKit_v0.10.0.0-beta-staging-2817\ReferenceAssemblies\Eco.ModKit.dll</HintPath>
-        </Reference>
-        <Reference Include="Eco.Mods">
-            <HintPath>..\EcoModKit_v0.10.0.0-beta-staging-2817\ReferenceAssemblies\Eco.Mods.dll</HintPath>
-        </Reference>
-        <Reference Include="Eco.Networking.ENet">
-            <HintPath>..\EcoModKit_v0.10.0.0-beta-staging-2817\ReferenceAssemblies\Eco.Networking.ENet.dll</HintPath>
-        </Reference>
-        <Reference Include="Eco.Plugins">
-            <HintPath>..\EcoModKit_v0.10.0.0-beta-staging-2817\ReferenceAssemblies\Eco.Plugins.dll</HintPath>
-        </Reference>
-        <Reference Include="Eco.Shared">
-            <HintPath>..\EcoModKit_v0.10.0.0-beta-staging-2817\ReferenceAssemblies\Eco.Shared.dll</HintPath>
-        </Reference>
-        <Reference Include="Eco.Simulation">
-            <HintPath>..\EcoModKit_v0.10.0.0-beta-staging-2817\ReferenceAssemblies\Eco.Simulation.dll</HintPath>
-        </Reference>
-        <Reference Include="Eco.Stats">
-            <HintPath>..\EcoModKit_v0.10.0.0-beta-staging-2817\ReferenceAssemblies\Eco.Stats.dll</HintPath>
-        </Reference>
-        <Reference Include="Eco.WebServer">
-            <HintPath>..\EcoModKit_v0.10.0.0-beta-staging-2817\ReferenceAssemblies\Eco.WebServer.dll</HintPath>
-        </Reference>
-        <Reference Include="Eco.World">
-            <HintPath>..\EcoModKit_v0.10.0.0-beta-staging-2817\ReferenceAssemblies\Eco.World.dll</HintPath>
-        </Reference>
-        <Reference Include="Eco.WorldGenerator">
-            <HintPath>..\EcoModKit_v0.10.0.0-beta-staging-2817\ReferenceAssemblies\Eco.WorldGenerator.dll</HintPath>
-        </Reference>
-        <Reference Include="EcoServer">
-            <HintPath>..\EcoModKit_v0.10.0.0-beta-staging-2817\ReferenceAssemblies\EcoServer.dll</HintPath>
-        </Reference>
+        <EmbeddedResource Include="assets/**"/>
     </ItemGroup>
 
     <ItemGroup>
-        <EmbeddedResource Include="assets/**"/>
+        <Folder Include="assets\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Eco.Core">
+        <HintPath>..\..\modkit\EcoModKit_v0.10.0.0-beta-staging-2813\ReferenceAssemblies\Eco.Core.dll</HintPath>
+      </Reference>
+      <Reference Include="Eco.Gameplay">
+        <HintPath>..\..\modkit\EcoModKit_v0.10.0.0-beta-staging-2813\ReferenceAssemblies\Eco.Gameplay.dll</HintPath>
+      </Reference>
+      <Reference Include="Eco.ModKit">
+        <HintPath>..\..\modkit\EcoModKit_v0.10.0.0-beta-staging-2813\ReferenceAssemblies\Eco.ModKit.dll</HintPath>
+      </Reference>
+      <Reference Include="Eco.Mods">
+        <HintPath>..\..\modkit\EcoModKit_v0.10.0.0-beta-staging-2813\ReferenceAssemblies\Eco.Mods.dll</HintPath>
+      </Reference>
+      <Reference Include="Eco.Networking.ENet">
+        <HintPath>..\..\modkit\EcoModKit_v0.10.0.0-beta-staging-2813\ReferenceAssemblies\Eco.Networking.ENet.dll</HintPath>
+      </Reference>
+      <Reference Include="Eco.Plugins">
+        <HintPath>..\..\modkit\EcoModKit_v0.10.0.0-beta-staging-2813\ReferenceAssemblies\Eco.Plugins.dll</HintPath>
+      </Reference>
+      <Reference Include="Eco.Shared">
+        <HintPath>..\..\modkit\EcoModKit_v0.10.0.0-beta-staging-2813\ReferenceAssemblies\Eco.Shared.dll</HintPath>
+      </Reference>
+      <Reference Include="Eco.Simulation">
+        <HintPath>..\..\modkit\EcoModKit_v0.10.0.0-beta-staging-2813\ReferenceAssemblies\Eco.Simulation.dll</HintPath>
+      </Reference>
+      <Reference Include="Eco.Stats">
+        <HintPath>..\..\modkit\EcoModKit_v0.10.0.0-beta-staging-2813\ReferenceAssemblies\Eco.Stats.dll</HintPath>
+      </Reference>
+      <Reference Include="Eco.WebServer">
+        <HintPath>..\..\modkit\EcoModKit_v0.10.0.0-beta-staging-2813\ReferenceAssemblies\Eco.WebServer.dll</HintPath>
+      </Reference>
+      <Reference Include="Eco.World">
+        <HintPath>..\..\modkit\EcoModKit_v0.10.0.0-beta-staging-2813\ReferenceAssemblies\Eco.World.dll</HintPath>
+      </Reference>
+      <Reference Include="Eco.WorldGenerator">
+        <HintPath>..\..\modkit\EcoModKit_v0.10.0.0-beta-staging-2813\ReferenceAssemblies\Eco.WorldGenerator.dll</HintPath>
+      </Reference>
+      <Reference Include="EcoServer">
+        <HintPath>..\..\modkit\EcoModKit_v0.10.0.0-beta-staging-2813\ReferenceAssemblies\EcoServer.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
