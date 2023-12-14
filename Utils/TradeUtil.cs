@@ -17,6 +17,7 @@ namespace Eco.Plugins.EcoLiveDataExporter.Utils
         public static HashSet<string> AllTradeHistoryFiles { get; set; }
         public static IEnumerable<StoreComponent> Stores => WorldObjectUtil.AllObjsWithComponent<StoreComponent>();
 
+        
         public static void Initialize()
         {
             var allEntries = LocalFileExporter.ReadFileLines("tradeHistory");

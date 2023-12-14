@@ -36,12 +36,11 @@ namespace Eco.Plugins.EcoLiveDataExporter.Poco
         {
             try
             {
-                return new KeyValuePair<string, string>[] { new KeyValuePair<string, string>(propInfo.PropertyType.Name, propInfo.GetValue(item)?.ToString()) };
+                return new[] { new KeyValuePair<string, string>(propInfo.PropertyType.Name, propInfo?.GetValue(item)?.ToString() ?? "") };
             }
             catch (Exception e)
             {
-                Logger.Error($"Got an exception trying to get property {propInfo.PropertyType.Name} from item {item.DisplayName}: \n {e}");
-                return new KeyValuePair<string, string>[] { new KeyValuePair<string, string>(propInfo.PropertyType.Name, "")};
+                return new[] { new KeyValuePair<string, string>(propInfo.PropertyType.Name, "<unknown>")};
             }
         }
     }
