@@ -66,7 +66,7 @@ public class EcoLiveData : IModKitPlugin, IInitializablePlugin, IShutdownablePlu
     public string GetCategory() => "EcoWorld Mods";
     public LocString GetMenuTitle()
     {
-        return new LocString("Eco-Calculcator");
+        return new LocString("Price Calculator");
     }
 
     public string GetPluginIndexUrl()
